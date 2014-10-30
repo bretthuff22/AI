@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Graph.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="HAIL.h" />
+    <ClInclude Include="DijkstraSearch.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="BreadthFirstSearch.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthFirstSearch.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphSearch.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="AStarSearch.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Graph">
+      <UniqueIdentifier>{25841656-e934-4ba3-9516-0e48ad41d00e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Graph.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="DijkstraSearch.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="BreadthFirstSearch.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthFirstSearch.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphSearch.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="AStarSearch.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

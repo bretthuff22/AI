@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HAIL", "HAIL\HAIL.vcxproj", "{718D194A-D9AD-40A5-976E-9DA416711085}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SGE", "SGE\SGE.vcxproj", "{34282BBF-80BD-40A9-8B00-4B6955B5D24A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PathfindingTest", "PathfindingTest\PathfindingTest.vcxproj", "{AF4E383A-3A38-452B-9DB9-AF879DD2FAB8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{718D194A-D9AD-40A5-976E-9DA416711085}.Debug|Win32.ActiveCfg = Debug|Win32
+		{718D194A-D9AD-40A5-976E-9DA416711085}.Debug|Win32.Build.0 = Debug|Win32
+		{718D194A-D9AD-40A5-976E-9DA416711085}.Release|Win32.ActiveCfg = Release|Win32
+		{718D194A-D9AD-40A5-976E-9DA416711085}.Release|Win32.Build.0 = Release|Win32
+		{34282BBF-80BD-40A9-8B00-4B6955B5D24A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{34282BBF-80BD-40A9-8B00-4B6955B5D24A}.Debug|Win32.Build.0 = Debug|Win32
+		{34282BBF-80BD-40A9-8B00-4B6955B5D24A}.Release|Win32.ActiveCfg = Release|Win32
+		{34282BBF-80BD-40A9-8B00-4B6955B5D24A}.Release|Win32.Build.0 = Release|Win32
+		{AF4E383A-3A38-452B-9DB9-AF879DD2FAB8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AF4E383A-3A38-452B-9DB9-AF879DD2FAB8}.Debug|Win32.Build.0 = Debug|Win32
+		{AF4E383A-3A38-452B-9DB9-AF879DD2FAB8}.Release|Win32.ActiveCfg = Release|Win32
+		{AF4E383A-3A38-452B-9DB9-AF879DD2FAB8}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
