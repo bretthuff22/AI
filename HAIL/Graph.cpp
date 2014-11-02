@@ -55,6 +55,8 @@ void Graph::Create(unsigned unsigned int width, unsigned int height)
 		for (unsigned int x = 0; x < width; ++x)
 		{
 			Node* node = GetNode(x,y);
+			node->open = false;
+			node->closed = false;
 			node->neighbors[North]		= GetNode(x, y-1);
 			node->neighbors[East]		= GetNode(x+1, y);
 			node->neighbors[South]		= GetNode(x, y+1);

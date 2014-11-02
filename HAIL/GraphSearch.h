@@ -20,6 +20,7 @@ public:
 	bool IsFound() { return mFound;}
 
 	Node* GetPath();
+	NodeList GetClosedList()	{ return mClosedList; }
 
 private:
 	virtual Node* GetNextNode() = 0;
@@ -30,6 +31,8 @@ protected:
 
 	NodeList mOpenList;
 	NodeList mClosedList;
+	Node* mStartNode;
+	Node* mEndNode;
 
 	Graph& mGraph;
 

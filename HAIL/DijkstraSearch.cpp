@@ -17,15 +17,20 @@ Node* DijkstraSearch::GetNextNode()
 	for (NodeList::iterator iter = mOpenList.begin(); iter != mOpenList.end(); ++iter)
 	{
 		Node* node = *iter;
-		if (node->g < lowestCost && node->walkable)
+		if (node->g < lowestCost)
 		{
 			lowestIter = iter;
 			lowestCost = node->g;
 		}
 	}
 	
-	Node* lowestNode = *lowestIter;
-	mOpenList.erase(lowestIter);
+	Node* lowestNode = nullptr;
+	if (*lowestIter)
+	{
+		lowestNode = *lowestIter;
+		mOpenList.erase(lowestIter);
+	}
+	
 	return lowestNode;
 }
 

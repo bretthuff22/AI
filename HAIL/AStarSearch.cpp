@@ -12,22 +12,28 @@ AStarSearch::AStarSearch(Graph& graph, const ICostFunctor& getG, const ICostFunc
 
 Node* AStarSearch::GetNextNode()
 {
-	NodeList::iterator lowestIter;
+	NodeList::iterator lowestIter = mOpenList.begin();
 	float lowestCost = FLT_MAX;
 
 	for (NodeList::iterator iter = mOpenList.begin(); iter != mOpenList.end(); ++iter)
 	{
 		Node* node = *iter;
+
 		float cost = node->g + node->h;
-		if (cost < lowestCost && node->walkable)
+		if (cost < lowestCost)
 		{
 			lowestIter = iter;
 			lowestCost = cost;
 		}
 	}
 	
-	Node* lowestNode = *lowestIter;
-	mOpenList.erase(lowestIter);
+	Node* lowestNode = nullptr;
+	if (*lowestIter != nullptr)
+	{
+		lowestNode = *lowestIter;
+		mOpenList.erase(lowestIter);
+	}
+	
 	return lowestNode;
 }
 
@@ -36,7 +42,7 @@ void AStarSearch::ExpandNode(Node* node, Node* neighbor)
 	if(!neighbor->closed)
 	{
 		const float g = node->g + GetG(node, neighbor);
-		const float h = GetH(node, neighbor);
+		const float h = GetH(neighbor, mEndNode);
 		if (!neighbor->open)
 		{
 			neighbor->g = g;
@@ -45,10 +51,9 @@ void AStarSearch::ExpandNode(Node* node, Node* neighbor)
 			Push(neighbor);
 			neighbor->open = true;
 		}
-		else if (g + h < neighbor->g + neighbor->h)
+		else if (g < neighbor->g)
 		{
 			neighbor->g = g;
-			neighbor->h = h;
 			neighbor->parent = node;
 		}
 	}

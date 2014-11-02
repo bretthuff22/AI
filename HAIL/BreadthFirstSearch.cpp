@@ -12,11 +12,7 @@ Node* BreadthFirstSearch::GetNextNode()
 {
 	Node* node = mOpenList.front();
 	mOpenList.pop_front();
-	while (!node->walkable)
-	{
-		node = mOpenList.front();
-		mOpenList.pop_front();
-	}
+	
 	return node;
 }
 

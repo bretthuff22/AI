@@ -4,16 +4,18 @@
 GraphSearch::GraphSearch(Graph& graph)
 	: mGraph(graph)
 	, mFound(false)
+	, mStartNode(nullptr)
+	, mEndNode(nullptr)
 {
 
 }
 
 void GraphSearch::Run(unsigned int startX, unsigned int startY, unsigned int endX, unsigned int endY)
 {
-	Node* startNode = mGraph.GetNode(startX, startY);
-	Node* endNode = mGraph.GetNode(endX, endY);
+	mStartNode = mGraph.GetNode(startX, startY);
+	mEndNode = mGraph.GetNode(endX, endY);
 
-	if (startNode == nullptr || endNode == nullptr)
+	if (mStartNode == nullptr || mEndNode == nullptr)
 	{
 		return;
 	}
@@ -22,15 +24,16 @@ void GraphSearch::Run(unsigned int startX, unsigned int startY, unsigned int end
 	mGraph.ResetNodes();
 
 	// Add start node to the open list
-	mOpenList.push_back(startNode);
-	startNode->open = true;
+	mOpenList.push_back(mStartNode);
+	mStartNode->open = true;
 
 	// Start searching
 	bool done = false;
 	while (!done && !mOpenList.empty())
 	{
 		Node* node = GetNextNode();
-		if (node == endNode)
+
+		if (node == mEndNode)
 		{
 			done = true;
 			mFound = true;
@@ -40,7 +43,7 @@ void GraphSearch::Run(unsigned int startX, unsigned int startY, unsigned int end
 			for (unsigned int n = 0; n < Direction::Count; ++n)
 			{
 				Node* neighbor = node->neighbors[n];
-				if (neighbor!= nullptr)
+				if (neighbor!= nullptr && neighbor->walkable)
 				{
 					ExpandNode(node, neighbor);
 				}
@@ -50,8 +53,6 @@ void GraphSearch::Run(unsigned int startX, unsigned int startY, unsigned int end
 		mClosedList.push_back(node);
 		node->closed = true;
 	}
-
-	bool boobs = true;
 }
 
 Node* GraphSearch::GetPath()

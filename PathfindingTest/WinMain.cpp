@@ -14,6 +14,7 @@ TileMap map(kWidth, kHeight);
 SGE_Cursor cursor;
 SGE_Sprite tiles[kTotalTiles];
 Graph graph;
+NodeList ClosedList;
 SVector2 start;
 SVector2 end;
 bool started = false;
@@ -46,14 +47,17 @@ struct GetG : public ICostFunctor
 {
 	virtual float operator()(Node* node, Node* neighbor) const 
 	{
-		float dist = Distance(node->position, neighbor->position);
+		float dist = Distance(node->position/kTileSize, neighbor->position/kTileSize);
 		int x1 = node->position.x/kTileSize;
 		int y1 = node->position.y/kTileSize;
 		int x2 = neighbor->position.x/kTileSize;
 		int y2 = neighbor->position.x/kTileSize;
 		// map[y1][x1], map[y2][x2]
+		if (map.GetTile(x1, y1) != 0 && map.GetTile(x2, y2) != 0 && map.GetTile(x1, y1) != 2  && map.GetTile(x2, y2) != 2 )
+		{
+			dist *= costMatrix[map.GetTile(x1, y1)]*0.5f + costMatrix[map.GetTile(x2, y2)]*0.5f;
+		}
 		
-		dist *= costMatrix[map.GetTile(x1, y1)]*0.5f + costMatrix[map.GetTile(x2, y2)]*0.5f;
 
 		return dist;
 	}
@@ -61,16 +65,9 @@ struct GetG : public ICostFunctor
 
 struct GetH : public ICostFunctor
 {
-	virtual float operator()(Node* node, Node* neighbor) const 
+	virtual float operator()(Node* neighbor, Node* endNode) const 
 	{
-		float dist = Distance(neighbor->position, end);
-		int x1 = neighbor->position.x/kTileSize;
-		int y1 = neighbor->position.y/kTileSize;
-		int x2 = end.x/kTileSize;
-		int y2 = end.x/kTileSize;
-		// map[y1][x1], map[y2][x2]
-		
-		//dist *= costMatrix[map.GetTile(x1, y1)]*0.5f + costMatrix[map.GetTile(x2, y2)]*0.5f;
+		float dist = Distance(neighbor->position, endNode->position);
 
 		return dist;
 	}
@@ -138,9 +135,9 @@ bool SGE_Update(float deltaTime)
 		}
 		else if (!ended)
 		{
-			end.x = (float)Input_GetMouseScreenX()/kTileSize;
-			end.y = (float)Input_GetMouseScreenY()/kTileSize;
-			map.SetTile((int)end.x, (int)end.y, kTerrainTiles + 1);
+			end.x = Input_GetMouseScreenX()/kTileSize;
+			end.y = Input_GetMouseScreenY()/kTileSize;
+			map.SetTile(end.x, end.y, kTerrainTiles + 1);
 			ended = true;
 		}
 		else if (started && ended)
@@ -165,6 +162,8 @@ bool SGE_Update(float deltaTime)
 				last = search.GetPath(); 
 				bfs = true;
 			}
+
+			ClosedList = search.GetClosedList();
 		}
 		else
 		{
@@ -182,6 +181,7 @@ bool SGE_Update(float deltaTime)
 			{
 				last = search.GetPath(); 
 				dfs = true;
+				ClosedList = search.GetClosedList();
 			}
 		}
 		else
@@ -200,6 +200,7 @@ bool SGE_Update(float deltaTime)
 			{
 				last = search.GetPath(); 
 				ds = true;
+				ClosedList = search.GetClosedList();
 			}
 		}
 		else
@@ -218,6 +219,7 @@ bool SGE_Update(float deltaTime)
 			{
 				last = search.GetPath(); 
 				as = true;
+				ClosedList = search.GetClosedList();
 			}
 		}
 		else
@@ -250,6 +252,8 @@ bool SGE_Update(float deltaTime)
 		int x = Input_GetMouseScreenX()/kTileSize;
 		int y = Input_GetMouseScreenY()/kTileSize;
 		map.SetTile(x, y, 2);
+		graph.GetNode(x, y)->walkable = false;
+
 	}
 
 	// Set tile to grass
@@ -258,6 +262,7 @@ bool SGE_Update(float deltaTime)
 		int x = Input_GetMouseScreenX()/kTileSize;
 		int y = Input_GetMouseScreenY()/kTileSize;
 		map.SetTile(x, y, 1);
+		graph.GetNode(x, y)->walkable = true;
 	}
 
 	// Reset map
@@ -299,8 +304,20 @@ void SGE_Render()
 
 	if (bfs || dfs || ds || as)
 	{
+		for (NodeList::iterator iter = ClosedList.begin(); iter != ClosedList.end(); ++iter)
+		{
+			Node* node = *iter;
+			for (unsigned int i = 0; i < 8; ++i)
+			{
+				if (node->neighbors[i] != nullptr && node->neighbors[i]->closed && node->neighbors[i]->parent == node)
+				{
+					Graphics_DebugLine(node->position, node->neighbors[i]->position, 0x44FF44);
+				}
+			}
+		}
+
 		Node *node = last;
-		while (node->parent != nullptr)
+		while (last != nullptr && node->parent != nullptr)
 		{
 			Graphics_DebugLine(node->position, node->parent->position, 0xff0000);
 			node = node->parent;
