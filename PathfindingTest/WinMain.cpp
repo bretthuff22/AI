@@ -8,11 +8,12 @@ const int kWidth = 20;
 const int kHeight = 20;
 const int kTileSize = 32;
 const int kTerrainTiles = 5;
-const int kTotalTiles = 7;
 
 TileMap map(kWidth, kHeight);
 SGE_Cursor cursor;
-SGE_Sprite tiles[kTotalTiles];
+SGE_Sprite tiles[kTerrainTiles];
+SGE_Sprite startSprite;
+SGE_Sprite endSprite;
 Graph graph;
 NodeList ClosedList;
 SVector2 start;
@@ -48,10 +49,10 @@ struct GetG : public ICostFunctor
 	virtual float operator()(Node* node, Node* neighbor) const 
 	{
 		float dist = Distance(node->position/kTileSize, neighbor->position/kTileSize);
-		int x1 = node->position.x/kTileSize;
-		int y1 = node->position.y/kTileSize;
-		int x2 = neighbor->position.x/kTileSize;
-		int y2 = neighbor->position.x/kTileSize;
+		int x1 = (int)node->position.x/kTileSize;
+		int y1 = (int)node->position.y/kTileSize;
+		int x2 = (int)neighbor->position.x/kTileSize;
+		int y2 = (int)neighbor->position.x/kTileSize;
 		// map[y1][x1], map[y2][x2]
 		if (map.GetTile(x1, y1) != 0 && map.GetTile(x2, y2) != 0 && map.GetTile(x1, y1) != 2  && map.GetTile(x2, y2) != 2 )
 		{
@@ -82,8 +83,8 @@ void SGE_Initialize()
 	tiles[2].Load("brick.png");
 	tiles[3].Load("sand.png");
 	tiles[4].Load("water.png");
-	tiles[5].Load("start.png");
-	tiles[6].Load("end.png");
+	startSprite.Load("start.png");
+	endSprite.Load("end.png");
 
 	graph.Create(kWidth, kHeight);
 
@@ -128,16 +129,16 @@ bool SGE_Update(float deltaTime)
 	{
 		if (!started)
 		{
-			start.x = (float)Input_GetMouseScreenX()/kTileSize;
-			start.y = (float)Input_GetMouseScreenY()/kTileSize;
-			map.SetTile((int)start.x, (int)start.y, kTerrainTiles);
+			start.x = Input_GetMouseScreenX()/kTileSize;
+			start.y = Input_GetMouseScreenY()/kTileSize;
+			startSprite.SetPosition(start*kTileSize);
 			started = true;
 		}
 		else if (!ended)
 		{
 			end.x = Input_GetMouseScreenX()/kTileSize;
 			end.y = Input_GetMouseScreenY()/kTileSize;
-			map.SetTile(end.x, end.y, kTerrainTiles + 1);
+			endSprite.SetPosition(end*kTileSize);
 			ended = true;
 		}
 		else if (started && ended)
@@ -146,8 +147,8 @@ bool SGE_Update(float deltaTime)
 			ended = false;
 			bfs = false;
 			dfs = false;
-			map.SetTile((int)start.x, (int)start.y, 1);
-			map.SetTile((int)end.x, (int)end.y, 1);
+			ds = false;
+			as = false;
 		}
 	}
 
@@ -288,17 +289,6 @@ void SGE_Render()
 		{
 			tiles[map.GetTile(x, y)].SetPosition((float)x*kTileSize, (float)y*kTileSize);
 			tiles[map.GetTile(x, y)].Render();
-
-			// Draw neighbor connections
-			//Node* node = graph.GetNode(x,y);
-			//for (unsigned int n = 0; n < Direction::Count; ++n)
-			//{
-			//	Node* neighbor = node->neighbors[n];
-			//	if (neighbor!= nullptr)
-			//	{
-			//		Graphics_DebugLine(node->position, neighbor->position, 0xff0000);
-			//	}
-			//}
 		}
 	}
 
@@ -322,6 +312,15 @@ void SGE_Render()
 			Graphics_DebugLine(node->position, node->parent->position, 0xff0000);
 			node = node->parent;
 		}
+	}
+
+	if (started)
+	{
+		startSprite.Render();
+	}
+	if (ended)
+	{
+		endSprite.Render();
 	}
 	cursor.Render();
 }
