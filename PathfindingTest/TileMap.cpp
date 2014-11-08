@@ -1,4 +1,5 @@
 #include "TileMap.h"
+#include <stdlib.h>
 
 TileMap::TileMap(unsigned int x, unsigned int y)
 {
@@ -68,6 +69,18 @@ void TileMap::NoBorder()
 		for ( unsigned int j = 0; j < mHeight; ++j)
 		{
 			SetTile(i, j, 1);
+		}
+	}
+}
+
+void TileMap::RandomMap(unsigned int range)
+{
+	for ( unsigned int i = 0; i < mWidth; ++i)
+	{
+		for ( unsigned int j = 0; j < mHeight; ++j)
+		{
+			unsigned int random = rand() % range;
+			SetTile(i, j, random);
 		}
 	}
 }

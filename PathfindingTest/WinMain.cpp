@@ -278,6 +278,12 @@ bool SGE_Update(float deltaTime)
 		map.NoBorder();
 	}
 
+	// Reset map with random tiles
+	if (Input_IsKeyDown(Keys::LCONTROL) && Input_IsKeyDown(Keys::NUMPAD2) && !started)
+	{
+		//map.RandomMap(kTerrainTiles);
+	}
+
 	return Input_IsKeyPressed(Keys::ESCAPE);
 }
 

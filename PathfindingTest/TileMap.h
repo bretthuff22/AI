@@ -12,6 +12,7 @@ public:
 	unsigned int GetTile(unsigned int x, unsigned int y);
 	void ResetMap();
 	void NoBorder();
+	void RandomMap(unsigned int range);
 	
 protected:
 	unsigned int* mMap;
