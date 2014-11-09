@@ -25,6 +25,7 @@ bool bfs = false;
 bool dfs = false;
 bool ds = false;
 bool as = false;
+unsigned int rgb = 0x000000;
 
 //const float costMatrix[2][2] = 
 //{
@@ -124,6 +125,9 @@ void SGE_Terminate()
 bool SGE_Update(float deltaTime)
 {
 	cursor.Update(deltaTime);
+
+	rgb+=10;
+	rgb %= 0x00ffff;
 
 	if (Input_IsMousePressed(Mouse::MBUTTON) || Input_IsKeyPressed(Keys::SPACE))
 	{
@@ -281,7 +285,43 @@ bool SGE_Update(float deltaTime)
 	// Reset map with random tiles
 	if (Input_IsKeyDown(Keys::LCONTROL) && Input_IsKeyDown(Keys::NUMPAD2) && !started)
 	{
-		//map.RandomMap(kTerrainTiles);
+		map.RandomMap(kTerrainTiles);
+
+		for (unsigned int x = 0; x < kWidth; ++x)
+		{
+			for (unsigned int y = 0; y < kHeight; ++y)
+			{
+				if(map.GetTile(x,y) != 0 && map.GetTile(x,y) != 2)
+				{
+					graph.GetNode(x, y)->walkable = true;
+				}
+				else
+				{
+					graph.GetNode(x, y)->walkable = false;
+				}
+			}
+		}
+	}
+
+	// Reset map with random tiles (smart)
+	if (Input_IsKeyDown(Keys::LCONTROL) && Input_IsKeyPressed(Keys::NUMPAD3) && !started)
+	{
+		map.RandomMapSmart();
+
+		for (unsigned int x = 0; x < kWidth; ++x)
+		{
+			for (unsigned int y = 0; y < kHeight; ++y)
+			{
+				if(map.GetTile(x,y) != 0 && map.GetTile(x,y) != 2)
+				{
+					graph.GetNode(x, y)->walkable = true;
+				}
+				else
+				{
+					graph.GetNode(x, y)->walkable = false;
+				}
+			}
+		}
 	}
 
 	return Input_IsKeyPressed(Keys::ESCAPE);
@@ -307,7 +347,7 @@ void SGE_Render()
 			{
 				if (node->neighbors[i] != nullptr && node->neighbors[i]->closed && node->neighbors[i]->parent == node)
 				{
-					Graphics_DebugLine(node->position, node->neighbors[i]->position, 0x44FF44);
+					Graphics_DebugLine(node->position, node->neighbors[i]->position, 0x888800);
 				}
 			}
 		}
@@ -315,7 +355,7 @@ void SGE_Render()
 		Node *node = last;
 		while (last != nullptr && node->parent != nullptr)
 		{
-			Graphics_DebugLine(node->position, node->parent->position, 0xff0000);
+			Graphics_DebugLine(node->position, node->parent->position, rgb + 0xff0000);
 			node = node->parent;
 		}
 	}

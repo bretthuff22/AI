@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SGE", "SGE\SGE.vcxproj", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PathfindingTest", "PathfindingTest\PathfindingTest.vcxproj", "{AF4E383A-3A38-452B-9DB9-AF879DD2FAB8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SteeringTest", "SteeringTest\SteeringTest.vcxproj", "{B3FA48FC-91F9-4FF2-9C38-2DBCC552FE97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -25,6 +27,10 @@ Global
 		{AF4E383A-3A38-452B-9DB9-AF879DD2FAB8}.Debug|Win32.Build.0 = Debug|Win32
 		{AF4E383A-3A38-452B-9DB9-AF879DD2FAB8}.Release|Win32.ActiveCfg = Release|Win32
 		{AF4E383A-3A38-452B-9DB9-AF879DD2FAB8}.Release|Win32.Build.0 = Release|Win32
+		{B3FA48FC-91F9-4FF2-9C38-2DBCC552FE97}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B3FA48FC-91F9-4FF2-9C38-2DBCC552FE97}.Debug|Win32.Build.0 = Debug|Win32
+		{B3FA48FC-91F9-4FF2-9C38-2DBCC552FE97}.Release|Win32.ActiveCfg = Release|Win32
+		{B3FA48FC-91F9-4FF2-9C38-2DBCC552FE97}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

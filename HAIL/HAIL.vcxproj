@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Agent.h" />
     <ClInclude Include="AStarSearch.h" />
     <ClInclude Include="BreadthFirstSearch.h" />
     <ClInclude Include="DepthFirstSearch.h" />
@@ -19,14 +20,21 @@
     <ClInclude Include="GraphSearch.h" />
     <ClInclude Include="HAIL.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="SeekBehavior.h" />
+    <ClInclude Include="SteeringBehavior.h" />
+    <ClInclude Include="SteeringModule.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Agent.cpp" />
     <ClCompile Include="AStarSearch.cpp" />
     <ClCompile Include="BreadthFirstSearch.cpp" />
     <ClCompile Include="DepthFirstSearch.cpp" />
     <ClCompile Include="DijkstraSearch.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="GraphSearch.cpp" />
+    <ClCompile Include="SeekBehavior.cpp" />
+    <ClCompile Include="SteeringBehavior.cpp" />
+    <ClCompile Include="SteeringModule.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{718D194A-D9AD-40A5-976E-9DA416711085}</ProjectGuid>

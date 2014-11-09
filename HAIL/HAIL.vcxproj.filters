@@ -23,10 +23,23 @@
     <ClInclude Include="AStarSearch.h">
       <Filter>Graph</Filter>
     </ClInclude>
+    <ClInclude Include="Agent.h" />
+    <ClInclude Include="SteeringModule.h">
+      <Filter>Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="SteeringBehavior.h">
+      <Filter>Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="SeekBehavior.h">
+      <Filter>Steering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">
       <UniqueIdentifier>{25841656-e934-4ba3-9516-0e48ad41d00e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Steering">
+      <UniqueIdentifier>{829e5f26-e099-4e4d-9856-09c1a97cd2a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -47,6 +60,16 @@
     </ClCompile>
     <ClCompile Include="AStarSearch.cpp">
       <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Agent.cpp" />
+    <ClCompile Include="SteeringModule.cpp">
+      <Filter>Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="SteeringBehavior.cpp">
+      <Filter>Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="SeekBehavior.cpp">
+      <Filter>Steering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
