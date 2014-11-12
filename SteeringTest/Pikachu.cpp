@@ -1,8 +1,11 @@
 #include "Pikachu.h"
 
 Pikachu::Pikachu()
-	: mSteeringModule(this)
+	: mSteerMode(Agent::SteerMode::kNONE)
+	, mSteeringModule(this)
 	, mSeek(this, 1.0f)
+	, mFlee(this, 1.0f)
+	, mArrive(this, 1.0f)
 {
 
 }
@@ -35,11 +38,29 @@ void Pikachu::Update(float deltaTime)
 	vel.Truncate(GetMaxSpeed());
 	SetVelocity(vel);
 	SetPosition(GetPosition() + vel * deltaTime);
-
 }
 
 void Pikachu::Render()
 {
 	mSprite.SetPosition(GetPosition());
 	mSprite.Render();
+}
+
+void Pikachu::SetSteerMode( Agent::SteerMode steerMode)
+{
+	mSteeringModule.PopBehavior();
+	mSteerMode = steerMode;
+
+	if (steerMode == kSEEK)
+	{
+		mSteeringModule.AddBehavior(&mSeek);
+	}
+	else if (steerMode == kFLEE)
+	{
+		mSteeringModule.AddBehavior(&mFlee);
+	}
+	else if (steerMode == kARRIVE)
+	{
+		mSteeringModule.AddBehavior(&mArrive);
+	}
 }

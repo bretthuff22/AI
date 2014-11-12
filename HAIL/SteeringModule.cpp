@@ -17,6 +17,14 @@ void SteeringModule::AddBehavior(SteeringBehavior* behavior)
 {
 	mBehaviors.push_back(behavior);
 }
+
+void SteeringModule::PopBehavior()
+{
+	if (mBehaviors.size())
+	{
+		mBehaviors.pop_back();
+	}
+}
 	
 SVector2 SteeringModule::Update(float deltaTime)
 {

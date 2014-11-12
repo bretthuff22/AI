@@ -17,5 +17,7 @@
 #include "SteeringModule.h"
 #include "SteeringBehavior.h"
 #include "SeekBehavior.h"
+#include "FleeBehavior.h"
+#include "ArriveBehavior.h"
 
 #endif //INCLUDED_HAIL_H

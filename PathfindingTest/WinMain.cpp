@@ -258,7 +258,6 @@ bool SGE_Update(float deltaTime)
 		int y = Input_GetMouseScreenY()/kTileSize;
 		map.SetTile(x, y, 2);
 		graph.GetNode(x, y)->walkable = false;
-
 	}
 
 	// Set tile to grass

@@ -16,9 +16,14 @@ public:
 	void Update(float deltaTime);
 	void Render();
 
+	void SetSteerMode( Agent::SteerMode steerMode);
+
 protected:
+	Agent::SteerMode mSteerMode;
 	SteeringModule mSteeringModule;
 	SeekBehavior mSeek;
+	FleeBehavior mFlee;
+	ArriveBehavior mArrive;
 
 	SGE_Sprite mSprite;
 };

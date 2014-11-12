@@ -14,6 +14,7 @@ public:
 	~SteeringModule();
 
 	void AddBehavior(SteeringBehavior* behavior);
+	void PopBehavior();
 	SVector2 Update(float deltaTime);
 
 private:

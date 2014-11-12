@@ -7,6 +7,15 @@ using namespace SGE;
 class Agent
 {
 public:
+
+	enum SteerMode
+	{
+		kNONE,
+		kSEEK,
+		kFLEE,
+		kARRIVE
+	};
+
 	Agent();
 	virtual ~Agent();
 

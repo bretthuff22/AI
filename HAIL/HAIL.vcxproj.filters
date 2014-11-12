@@ -33,6 +33,12 @@
     <ClInclude Include="SeekBehavior.h">
       <Filter>Steering</Filter>
     </ClInclude>
+    <ClInclude Include="FleeBehavior.h">
+      <Filter>Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="ArriveBehavior.h">
+      <Filter>Steering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">
@@ -69,6 +75,12 @@
       <Filter>Steering</Filter>
     </ClCompile>
     <ClCompile Include="SeekBehavior.cpp">
+      <Filter>Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="FleeBehavior.cpp">
+      <Filter>Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="ArriveBehavior.cpp">
       <Filter>Steering</Filter>
     </ClCompile>
   </ItemGroup>

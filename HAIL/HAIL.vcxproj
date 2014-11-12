@@ -12,10 +12,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Agent.h" />
+    <ClInclude Include="ArriveBehavior.h" />
     <ClInclude Include="AStarSearch.h" />
     <ClInclude Include="BreadthFirstSearch.h" />
     <ClInclude Include="DepthFirstSearch.h" />
     <ClInclude Include="DijkstraSearch.h" />
+    <ClInclude Include="FleeBehavior.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="GraphSearch.h" />
     <ClInclude Include="HAIL.h" />
@@ -26,10 +28,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Agent.cpp" />
+    <ClCompile Include="ArriveBehavior.cpp" />
     <ClCompile Include="AStarSearch.cpp" />
     <ClCompile Include="BreadthFirstSearch.cpp" />
     <ClCompile Include="DepthFirstSearch.cpp" />
     <ClCompile Include="DijkstraSearch.cpp" />
+    <ClCompile Include="FleeBehavior.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="GraphSearch.cpp" />
     <ClCompile Include="SeekBehavior.cpp" />
