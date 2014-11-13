@@ -7,16 +7,19 @@ using namespace SGE;
 SGE_Cursor cursor;
 Pikachu pikachu;
 float pikachuSize = 128.0f;
+SGE_Sprite destination;
 
 void SGE_Initialize()
 {
-	cursor.Load("carrot.png");	
+	cursor.Load("cursor.png");	
+	destination.Load("carrot.png");
 	pikachu.Load();
 }
 
 void SGE_Terminate()
 {
 	cursor.Unload();
+	destination.Unload();
 	pikachu.Unload();
 }
 	
@@ -24,6 +27,12 @@ bool SGE_Update(float deltaTime)
 {
 	cursor.Update(deltaTime);
 	pikachu.SetDestination(SVector2((int)Input_GetMouseScreenX() - pikachuSize/2, (int)Input_GetMouseScreenY() - pikachuSize/2));
+	if (pikachu.GetSteerMode() == Agent::SteerMode::kPURSUIT)
+	{
+		SVector2 targetDest = pikachu.GetPursuitBehavior().GetTargetDestination();
+		targetDest += SVector2(pikachuSize/2, pikachuSize/2);
+		destination.SetPosition(targetDest);
+	}
 
 	if (Input_IsKeyPressed(Keys::F1))
 	{
@@ -37,6 +46,11 @@ bool SGE_Update(float deltaTime)
 	{
 		pikachu.SetSteerMode(Agent::SteerMode::kARRIVE);
 	}
+	else if (Input_IsKeyPressed(Keys::F4))
+	{
+		pikachu.SetSteerMode(Agent::SteerMode::kPURSUIT);
+	}
+
 	pikachu.Update(deltaTime);
 
 	// follow the carrot
@@ -47,4 +61,8 @@ void SGE_Render()
 {
 	cursor.Render();
 	pikachu.Render();
+	if (pikachu.GetSteerMode() == Agent::SteerMode::kPURSUIT)
+	{
+		destination.Render();
+	}
 }

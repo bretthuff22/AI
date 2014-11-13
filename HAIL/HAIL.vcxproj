@@ -22,6 +22,7 @@
     <ClInclude Include="GraphSearch.h" />
     <ClInclude Include="HAIL.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="PursuitBehavior.h" />
     <ClInclude Include="SeekBehavior.h" />
     <ClInclude Include="SteeringBehavior.h" />
     <ClInclude Include="SteeringModule.h" />
@@ -36,6 +37,7 @@
     <ClCompile Include="FleeBehavior.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="GraphSearch.cpp" />
+    <ClCompile Include="PursuitBehavior.cpp" />
     <ClCompile Include="SeekBehavior.cpp" />
     <ClCompile Include="SteeringBehavior.cpp" />
     <ClCompile Include="SteeringModule.cpp" />

@@ -6,6 +6,7 @@ Pikachu::Pikachu()
 	, mSeek(this, 1.0f)
 	, mFlee(this, 1.0f)
 	, mArrive(this, 1.0f)
+	, mPursuit(this, 1.0f)
 {
 
 }
@@ -19,7 +20,7 @@ void Pikachu::Load()
 	mSteeringModule.AddBehavior(&mSeek);
 
 	SetMaxForce(100.0f);
-	SetMaxSpeed(300.0f);
+	SetMaxSpeed(100.0f);
 
 	mSprite.Load("pikachu.png");
 }
@@ -37,7 +38,8 @@ void Pikachu::Update(float deltaTime)
 	SVector2 vel = GetVelocity();
 	vel.Truncate(GetMaxSpeed());
 	SetVelocity(vel);
-	SetPosition(GetPosition() + vel * deltaTime);
+	SVector2 pos = GetPosition() + vel * deltaTime;
+	SetPosition(pos);
 }
 
 void Pikachu::Render()
@@ -62,5 +64,9 @@ void Pikachu::SetSteerMode( Agent::SteerMode steerMode)
 	else if (steerMode == kARRIVE)
 	{
 		mSteeringModule.AddBehavior(&mArrive);
+	}
+	else if (steerMode == kPURSUIT)
+	{
+		mSteeringModule.AddBehavior(&mPursuit);
 	}
 }
