@@ -7,6 +7,7 @@ Pikachu::Pikachu()
 	, mFlee(this, 1.0f)
 	, mArrive(this, 1.0f)
 	, mPursuit(this, 1.0f)
+	, mEvade(this, 1.0f)
 {
 
 }
@@ -68,5 +69,9 @@ void Pikachu::SetSteerMode( Agent::SteerMode steerMode)
 	else if (steerMode == kPURSUIT)
 	{
 		mSteeringModule.AddBehavior(&mPursuit);
+	}
+	else if (steerMode == kEVADE)
+	{
+		mSteeringModule.AddBehavior(&mEvade);
 	}
 }

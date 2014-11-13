@@ -50,6 +50,21 @@ bool SGE_Update(float deltaTime)
 	{
 		pikachu.SetSteerMode(Agent::SteerMode::kPURSUIT);
 	}
+	else if (Input_IsKeyPressed(Keys::F5))
+	{
+		pikachu.SetSteerMode(Agent::SteerMode::kEVADE);
+	}
+	
+
+	if (Input_IsKeyPressed(Keys::PERIOD))
+	{
+		pikachu.SetMaxSpeed(pikachu.GetMaxSpeed() + 100.0f);
+	}
+
+	if (Input_IsKeyPressed(Keys::COMMA))
+	{
+		pikachu.SetMaxSpeed(Max(pikachu.GetMaxSpeed() - 100.0f, 0.0f));
+	}
 
 	pikachu.Update(deltaTime);
 

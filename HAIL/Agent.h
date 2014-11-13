@@ -14,7 +14,8 @@ public:
 		kSEEK,
 		kFLEE,
 		kARRIVE,
-		kPURSUIT
+		kPURSUIT,
+		kEVADE
 	};
 
 	Agent();

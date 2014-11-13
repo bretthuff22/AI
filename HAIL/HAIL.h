@@ -20,5 +20,6 @@
 #include "FleeBehavior.h"
 #include "ArriveBehavior.h"
 #include "PursuitBehavior.h"
+#include "EvadeBehavior.h"
 
 #endif //INCLUDED_HAIL_H

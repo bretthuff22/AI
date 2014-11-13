@@ -17,6 +17,7 @@ public:
 	void Render();
 
 	void SetSteerMode( Agent::SteerMode steerMode);
+	
 	Agent::SteerMode GetSteerMode()			{ return mSteerMode; }
 	PursuitBehavior GetPursuitBehavior()	{ return mPursuit; }
 
@@ -27,6 +28,7 @@ protected:
 	FleeBehavior mFlee;
 	ArriveBehavior mArrive;
 	PursuitBehavior mPursuit;
+	EvadeBehavior mEvade;
 
 	SGE_Sprite mSprite;
 };

@@ -17,6 +17,7 @@
     <ClInclude Include="BreadthFirstSearch.h" />
     <ClInclude Include="DepthFirstSearch.h" />
     <ClInclude Include="DijkstraSearch.h" />
+    <ClInclude Include="EvadeBehavior.h" />
     <ClInclude Include="FleeBehavior.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="GraphSearch.h" />
@@ -34,6 +35,7 @@
     <ClCompile Include="BreadthFirstSearch.cpp" />
     <ClCompile Include="DepthFirstSearch.cpp" />
     <ClCompile Include="DijkstraSearch.cpp" />
+    <ClCompile Include="EvadeBehavior.cpp" />
     <ClCompile Include="FleeBehavior.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="GraphSearch.cpp" />

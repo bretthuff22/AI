@@ -10,9 +10,8 @@ FleeBehavior::FleeBehavior(Agent* pAgent, float weight)
 
 SVector2 FleeBehavior::Update(float deltaTime)
 {
-
-
-	const float panicDistanceSq = 100.0f * 100.0f;
+	const float maxSpeed = mpAgent->GetMaxSpeed();
+	const float panicDistanceSq = maxSpeed*maxSpeed;
 	if (DistanceSquared(mpAgent->GetPosition(), mpAgent->GetDestination()) > panicDistanceSq)
 	{
 		return SVector2( 0, 0);
