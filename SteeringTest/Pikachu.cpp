@@ -8,6 +8,7 @@ Pikachu::Pikachu()
 	, mArrive(this, 1.0f)
 	, mPursuit(this, 1.0f)
 	, mEvade(this, 1.0f)
+	, mWander(this, 1.0f)
 {
 
 }
@@ -40,7 +41,23 @@ void Pikachu::Update(float deltaTime)
 	vel.Truncate(GetMaxSpeed());
 	SetVelocity(vel);
 	SVector2 pos = GetPosition() + vel * deltaTime;
+
+	int width = IniFile_GetInt("WinWidth", 768.0f);
+	int height = IniFile_GetInt("WinHeight", 768.0f);
+
+	if (pos.x < -100.0f || pos.x > width)
+	{
+		pos.x = ((int)pos.x + width) % width;
+	}
+
+	if (pos.y < -100.0f || pos.y > height)
+	{
+		pos.y = ((int)pos.y + height) % height;
+	}
+
 	SetPosition(pos);
+
+
 }
 
 void Pikachu::Render()
@@ -73,5 +90,9 @@ void Pikachu::SetSteerMode( Agent::SteerMode steerMode)
 	else if (steerMode == kEVADE)
 	{
 		mSteeringModule.AddBehavior(&mEvade);
+	}
+	else if (steerMode == kWANDER)
+	{
+		mSteeringModule.AddBehavior(&mWander);
 	}
 }

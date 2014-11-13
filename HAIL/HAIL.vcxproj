@@ -27,6 +27,7 @@
     <ClInclude Include="SeekBehavior.h" />
     <ClInclude Include="SteeringBehavior.h" />
     <ClInclude Include="SteeringModule.h" />
+    <ClInclude Include="WanderBehavior.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Agent.cpp" />
@@ -43,6 +44,7 @@
     <ClCompile Include="SeekBehavior.cpp" />
     <ClCompile Include="SteeringBehavior.cpp" />
     <ClCompile Include="SteeringModule.cpp" />
+    <ClCompile Include="WanderBehavior.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{718D194A-D9AD-40A5-976E-9DA416711085}</ProjectGuid>

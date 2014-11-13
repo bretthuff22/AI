@@ -26,7 +26,17 @@ void SGE_Terminate()
 bool SGE_Update(float deltaTime)
 {
 	cursor.Update(deltaTime);
-	pikachu.SetDestination(SVector2((int)Input_GetMouseScreenX() - pikachuSize/2, (int)Input_GetMouseScreenY() - pikachuSize/2));
+	if (pikachu.GetSteerMode() != Agent::SteerMode::kWANDER)
+	{
+		pikachu.SetDestination(SVector2((int)Input_GetMouseScreenX() - pikachuSize/2, (int)Input_GetMouseScreenY() - pikachuSize/2));
+	}
+	else
+	{
+		SVector2 targetDest = pikachu.GetWanderBehavior().GetTargetDestination();
+		targetDest += SVector2(pikachuSize/2, pikachuSize/2);
+		destination.SetPosition(targetDest);
+	}
+
 	if (pikachu.GetSteerMode() == Agent::SteerMode::kPURSUIT)
 	{
 		SVector2 targetDest = pikachu.GetPursuitBehavior().GetTargetDestination();
@@ -54,6 +64,11 @@ bool SGE_Update(float deltaTime)
 	{
 		pikachu.SetSteerMode(Agent::SteerMode::kEVADE);
 	}
+	else if (Input_IsKeyPressed(Keys::F6))
+	{
+		pikachu.SetSteerMode(Agent::SteerMode::kWANDER);
+	}
+	
 	
 
 	if (Input_IsKeyPressed(Keys::PERIOD))
@@ -76,8 +91,15 @@ void SGE_Render()
 {
 	cursor.Render();
 	pikachu.Render();
-	if (pikachu.GetSteerMode() == Agent::SteerMode::kPURSUIT)
+	if (pikachu.GetSteerMode() == Agent::SteerMode::kPURSUIT || pikachu.GetSteerMode() == Agent::SteerMode::kWANDER)
 	{
 		destination.Render();
+	}
+
+	if (pikachu.GetSteerMode() == Agent::SteerMode::kWANDER)
+	{
+		SCircle circle = pikachu.GetWanderBehavior().GetCircle();
+		SVector2 offset = SVector2(pikachuSize*0.5f, pikachuSize*0.5f);
+		Graphics_DebugCircle(circle.center + offset, circle.radius, 0xFF0000);
 	}
 }

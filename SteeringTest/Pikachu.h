@@ -20,6 +20,7 @@ public:
 	
 	Agent::SteerMode GetSteerMode()			{ return mSteerMode; }
 	PursuitBehavior GetPursuitBehavior()	{ return mPursuit; }
+	WanderBehavior GetWanderBehavior()		{ return mWander; }	
 
 protected:
 	Agent::SteerMode mSteerMode;
@@ -29,6 +30,7 @@ protected:
 	ArriveBehavior mArrive;
 	PursuitBehavior mPursuit;
 	EvadeBehavior mEvade;
+	WanderBehavior mWander;
 
 	SGE_Sprite mSprite;
 };

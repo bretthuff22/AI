@@ -45,6 +45,9 @@
     <ClInclude Include="EvadeBehavior.h">
       <Filter>Steering</Filter>
     </ClInclude>
+    <ClInclude Include="WanderBehavior.h">
+      <Filter>Steering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">
@@ -93,6 +96,9 @@
       <Filter>Steering</Filter>
     </ClCompile>
     <ClCompile Include="EvadeBehavior.cpp">
+      <Filter>Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="WanderBehavior.cpp">
       <Filter>Steering</Filter>
     </ClCompile>
   </ItemGroup>
