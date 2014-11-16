@@ -1,7 +1,8 @@
 #include "Pikachu.h"
 
-Pikachu::Pikachu()
-	: mSteerMode(Agent::SteerMode::kNONE)
+Pikachu::Pikachu(AIWorld& aiWorld)
+	: Agent(aiWorld)
+	, mSteerMode(Agent::SteerMode::kNONE)
 	, mSteeringModule(this)
 	, mSeek(this, 1.0f)
 	, mFlee(this, 1.0f)
@@ -9,6 +10,8 @@ Pikachu::Pikachu()
 	, mPursuit(this, 1.0f)
 	, mEvade(this, 1.0f)
 	, mWander(this, 1.0f)
+	, mInterpose(this, 1.0f)
+	, mHide(this, 1.0f)
 {
 
 }
@@ -35,7 +38,7 @@ void Pikachu::Unload()
 void Pikachu::Update(float deltaTime)
 {
 	SVector2 force = mSteeringModule.Update(deltaTime);
-	SVector2 acceleration = force / 1.0f; // should be mass
+	SVector2 acceleration = force / 1.0f; // should be mass 
 	SetVelocity(GetVelocity() + acceleration * deltaTime);
 	SVector2 vel = GetVelocity();
 	vel.Truncate(GetMaxSpeed());
@@ -57,12 +60,24 @@ void Pikachu::Update(float deltaTime)
 
 	SetPosition(pos);
 
-
+	if (GetVelocity().LengthSquared() > 0.005f)
+	{
+		SetHeading(Normalize(GetVelocity()));
+		SetSide(SVector2(-GetHeading().y, GetHeading().x));
+	}
+	
 }
 
 void Pikachu::Render()
 {
-	mSprite.SetPosition(GetPosition());
+	const float kHalfWidth = mSprite.GetWidth()*0.5f;
+	const float kHalfHeight = mSprite.GetHeight()*0.5f;
+	const SVector2 pos(GetPosition().x - kHalfWidth, GetPosition().y - kHalfHeight);
+
+	float angle = atan2f(GetHeading().y, GetHeading().x ) + (kPI *0.5f);
+
+	mSprite.SetPosition(pos);
+	mSprite.SetRotation(angle);
 	mSprite.Render();
 }
 
@@ -94,5 +109,13 @@ void Pikachu::SetSteerMode( Agent::SteerMode steerMode)
 	else if (steerMode == kWANDER)
 	{
 		mSteeringModule.AddBehavior(&mWander);
+	}
+	else if (steerMode == kINTERPOSE)
+	{
+		mSteeringModule.AddBehavior(&mInterpose);
+	}
+	else if (steerMode == kHIDE)
+	{
+		mSteeringModule.AddBehavior(&mHide);
 	}
 }

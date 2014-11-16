@@ -48,6 +48,13 @@
     <ClInclude Include="WanderBehavior.h">
       <Filter>Steering</Filter>
     </ClInclude>
+    <ClInclude Include="InterposeBehavior.h">
+      <Filter>Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="AIWorld.h" />
+    <ClInclude Include="HideBehavior.h">
+      <Filter>Steering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">
@@ -99,6 +106,13 @@
       <Filter>Steering</Filter>
     </ClCompile>
     <ClCompile Include="WanderBehavior.cpp">
+      <Filter>Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="InterposeBehavior.cpp">
+      <Filter>Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="AIWorld.cpp" />
+    <ClCompile Include="HideBehavior.cpp">
       <Filter>Steering</Filter>
     </ClCompile>
   </ItemGroup>

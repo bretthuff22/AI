@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Agent.h" />
+    <ClInclude Include="AIWorld.h" />
     <ClInclude Include="ArriveBehavior.h" />
     <ClInclude Include="AStarSearch.h" />
     <ClInclude Include="BreadthFirstSearch.h" />
@@ -22,6 +23,8 @@
     <ClInclude Include="Graph.h" />
     <ClInclude Include="GraphSearch.h" />
     <ClInclude Include="HAIL.h" />
+    <ClInclude Include="HideBehavior.h" />
+    <ClInclude Include="InterposeBehavior.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="PursuitBehavior.h" />
     <ClInclude Include="SeekBehavior.h" />
@@ -31,6 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Agent.cpp" />
+    <ClCompile Include="AIWorld.cpp" />
     <ClCompile Include="ArriveBehavior.cpp" />
     <ClCompile Include="AStarSearch.cpp" />
     <ClCompile Include="BreadthFirstSearch.cpp" />
@@ -40,6 +44,8 @@
     <ClCompile Include="FleeBehavior.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="GraphSearch.cpp" />
+    <ClCompile Include="HideBehavior.cpp" />
+    <ClCompile Include="InterposeBehavior.cpp" />
     <ClCompile Include="PursuitBehavior.cpp" />
     <ClCompile Include="SeekBehavior.cpp" />
     <ClCompile Include="SteeringBehavior.cpp" />

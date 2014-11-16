@@ -3,6 +3,7 @@
 
 // Agent headers
 #include "Agent.h"
+#include "AIWorld.h"
 
 // Graph headers
 #include "Graph.h"
@@ -22,5 +23,7 @@
 #include "PursuitBehavior.h"
 #include "EvadeBehavior.h"
 #include "WanderBehavior.h"
+#include "InterposeBehavior.h"
+#include "HideBehavior.h"
 
 #endif //INCLUDED_HAIL_H

@@ -35,3 +35,4 @@ SVector2 PursuitBehavior::Update(float deltaTime)
 
 	return returnForce;
 }
+

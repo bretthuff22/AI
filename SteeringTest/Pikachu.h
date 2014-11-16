@@ -8,7 +8,7 @@ using namespace SGE;
 class Pikachu : public Agent
 {
 public: 
-	Pikachu();
+	Pikachu(AIWorld& aiWorld);
 	~Pikachu();
 
 	void Load();
@@ -18,9 +18,10 @@ public:
 
 	void SetSteerMode( Agent::SteerMode steerMode);
 	
-	Agent::SteerMode GetSteerMode()			{ return mSteerMode; }
-	PursuitBehavior GetPursuitBehavior()	{ return mPursuit; }
-	WanderBehavior GetWanderBehavior()		{ return mWander; }	
+	Agent::SteerMode GetSteerMode()				const	{ return mSteerMode; }
+	PursuitBehavior GetPursuitBehavior()		const	{ return mPursuit; }
+	WanderBehavior GetWanderBehavior()			const	{ return mWander; }	
+	InterposeBehavior GetInterposeBehavior()	const	{ return mInterpose; }
 
 protected:
 	Agent::SteerMode mSteerMode;
@@ -31,6 +32,8 @@ protected:
 	PursuitBehavior mPursuit;
 	EvadeBehavior mEvade;
 	WanderBehavior mWander;
+	InterposeBehavior mInterpose;
+	HideBehavior mHide;
 
 	SGE_Sprite mSprite;
 };

@@ -25,7 +25,7 @@ SVector2 WanderBehavior::Update(float deltaTime)
 	mCircle.center = agentPosition;
 
 	// STEP 1: ADD SMALL RANDOM DISPLACEMENT TO TARGET
-	float displacementRadius = mCircle.radius * 0.25f;
+	float displacementRadius = mCircle.radius * 0.5f;
 	SVector2 randomDisplacement = SVector2(RandomFloat(-displacementRadius, displacementRadius), RandomFloat(-displacementRadius, displacementRadius));
 	mTarget += randomDisplacement;
 
@@ -33,7 +33,7 @@ SVector2 WanderBehavior::Update(float deltaTime)
 	mTarget = Normalize(mTarget - mCircle.center) * mCircle.radius + mCircle.center;
 
 	// STEP 3: PROJECT CIRCLE IN FRONT OF AGENT
-	SVector2 forwardProjection = Normalize(mpAgent->GetVelocity()) * 200.0f; // projecting 200 pixels ahead
+	SVector2 forwardProjection = Normalize(mpAgent->GetVelocity()) * 100.0f; // projecting 100 pixels ahead
 	mCircle.center += forwardProjection;
 	mTarget += forwardProjection;
 
