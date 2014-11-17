@@ -10,6 +10,8 @@ SGE_Cursor cursor;
 Pikachu pikachu(aiWorld);
 float pikachuSize = 128.0f;
 SGE_Sprite destination;
+SGE_Sprite destinations[10];
+unsigned int destCounter = 0;
 
 SVector2 Wrap(SVector2 vector);
 
@@ -34,6 +36,12 @@ void SGE_Initialize()
 	destination.Load("carrot.png");
 	pikachu.Load();
 
+	for (unsigned int i = 0; i < 10; ++i)
+	{
+		destinations[i].Load("bullet2.png");
+		destinations[i].SetPosition(-1.0f, -1.0f);
+	}
+
 	GenerateAIWorld();
 }
 
@@ -50,7 +58,7 @@ bool SGE_Update(float deltaTime)
 	cursor.Update(deltaTime);
 
 	Agent::SteerMode steerMode = pikachu.GetSteerMode();
-	if (steerMode != Agent::SteerMode::kWANDER && steerMode != Agent::SteerMode::kINTERPOSE)
+	if (steerMode != Agent::SteerMode::kWANDER && steerMode != Agent::SteerMode::kINTERPOSE && steerMode != Agent::SteerMode::kPATHFOLLOWING)
 	{
 		pikachu.SetDestination(SVector2((int)Input_GetMouseScreenX(), (int)Input_GetMouseScreenY()));
 	}
@@ -73,6 +81,22 @@ bool SGE_Update(float deltaTime)
 		SVector2 targetDest = pikachu.GetPursuitBehavior().GetTargetDestination();
 		destination.SetPosition(targetDest);
 	}
+
+	if (steerMode == Agent::SteerMode::kPATHFOLLOWING)
+	{
+		if ( Input_IsMousePressed(0) && destCounter < 10)
+		{
+			SVector2 targetDest = SVector2(SVector2((int)Input_GetMouseScreenX(), (int)Input_GetMouseScreenY()));
+			pikachu.AddDestinationForPathFollowing(targetDest);
+			destinations[destCounter].SetPosition(targetDest);
+			destCounter++;
+		}
+	}
+	else
+	{
+		 destCounter = 0;
+	}
+
 
 	if (Input_IsKeyPressed(Keys::F1))
 	{
@@ -106,7 +130,15 @@ bool SGE_Update(float deltaTime)
 	{
 		pikachu.SetSteerMode(Agent::SteerMode::kHIDE);
 	}
-	
+	else if (Input_IsKeyPressed(Keys::F9))
+	{
+		pikachu.SetSteerMode(Agent::SteerMode::kPATHFOLLOWING);
+
+		SVector2 targetDest = pikachu.GetDestination();
+		pikachu.AddDestinationForPathFollowing(targetDest);
+		destinations[destCounter].SetPosition(targetDest);
+		destCounter++;
+	}
 	if (Input_IsKeyPressed(Keys::SPACE))
 	{
 		GenerateAIWorld();
@@ -130,6 +162,12 @@ bool SGE_Update(float deltaTime)
 void SGE_Render()
 {
 	cursor.Render();
+
+	for (unsigned int i = 0; i < destCounter; ++i)
+	{
+		destinations[i].Render();
+	}
+
 	pikachu.Render();
 	if (pikachu.GetSteerMode() == Agent::SteerMode::kPURSUIT || pikachu.GetSteerMode() == Agent::SteerMode::kWANDER)
 	{

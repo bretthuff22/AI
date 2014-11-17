@@ -25,5 +25,6 @@
 #include "WanderBehavior.h"
 #include "InterposeBehavior.h"
 #include "HideBehavior.h"
+#include "PathFollowingBehavior.h"
 
 #endif //INCLUDED_HAIL_H

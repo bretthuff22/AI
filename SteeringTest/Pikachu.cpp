@@ -12,6 +12,7 @@ Pikachu::Pikachu(AIWorld& aiWorld)
 	, mWander(this, 1.0f)
 	, mInterpose(this, 1.0f)
 	, mHide(this, 1.0f)
+	, mPathFollowing(this, 1.0f)
 {
 
 }
@@ -85,6 +86,7 @@ void Pikachu::SetSteerMode( Agent::SteerMode steerMode)
 {
 	mSteeringModule.PopBehavior();
 	mSteerMode = steerMode;
+	mPathFollowing.Clear();
 
 	if (steerMode == kSEEK)
 	{
@@ -118,4 +120,18 @@ void Pikachu::SetSteerMode( Agent::SteerMode steerMode)
 	{
 		mSteeringModule.AddBehavior(&mHide);
 	}
+	else if (steerMode == kPATHFOLLOWING)
+	{
+		mSteeringModule.AddBehavior(&mPathFollowing);
+	}
+}
+
+void Pikachu::AddDestinationForPathFollowing(SVector2 dest)
+{ 
+	mPathFollowing.AddDestination(dest); 
+}
+
+void Pikachu::ClearDestinationsForPathFollowing()
+{
+	mPathFollowing.Clear();
 }

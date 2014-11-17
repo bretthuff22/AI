@@ -20,7 +20,8 @@ public:
 		kEVADE,
 		kWANDER,
 		kINTERPOSE,
-		kHIDE
+		kHIDE,
+		kPATHFOLLOWING
 	};
 
 	Agent(AIWorld& world);

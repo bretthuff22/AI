@@ -18,10 +18,13 @@ public:
 
 	void SetSteerMode( Agent::SteerMode steerMode);
 	
-	Agent::SteerMode GetSteerMode()				const	{ return mSteerMode; }
-	PursuitBehavior GetPursuitBehavior()		const	{ return mPursuit; }
-	WanderBehavior GetWanderBehavior()			const	{ return mWander; }	
-	InterposeBehavior GetInterposeBehavior()	const	{ return mInterpose; }
+	Agent::SteerMode GetSteerMode()						const	{ return mSteerMode; }
+	PursuitBehavior GetPursuitBehavior()				const	{ return mPursuit; }
+	WanderBehavior GetWanderBehavior()					const	{ return mWander; }	
+	InterposeBehavior GetInterposeBehavior()			const	{ return mInterpose; }
+	void AddDestinationForPathFollowing(SVector2 dest);
+	void ClearDestinationsForPathFollowing(); 
+	PathFollowingBehavior GetPathFollowingBehavior()	const	{ return mPathFollowing; }
 
 protected:
 	Agent::SteerMode mSteerMode;
@@ -34,6 +37,7 @@ protected:
 	WanderBehavior mWander;
 	InterposeBehavior mInterpose;
 	HideBehavior mHide;
+	PathFollowingBehavior mPathFollowing;
 
 	SGE_Sprite mSprite;
 };
