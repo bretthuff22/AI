@@ -26,6 +26,7 @@
     <ClInclude Include="HideBehavior.h" />
     <ClInclude Include="InterposeBehavior.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="ObstacleAvoidanceBehavior.h" />
     <ClInclude Include="PathFollowingBehavior.h" />
     <ClInclude Include="PursuitBehavior.h" />
     <ClInclude Include="SeekBehavior.h" />
@@ -47,6 +48,7 @@
     <ClCompile Include="GraphSearch.cpp" />
     <ClCompile Include="HideBehavior.cpp" />
     <ClCompile Include="InterposeBehavior.cpp" />
+    <ClCompile Include="ObstacleAvoidanceBehavior.cpp" />
     <ClCompile Include="PathFollowingBehavior.cpp" />
     <ClCompile Include="PursuitBehavior.cpp" />
     <ClCompile Include="SeekBehavior.cpp" />

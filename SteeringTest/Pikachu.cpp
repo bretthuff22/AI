@@ -13,6 +13,7 @@ Pikachu::Pikachu(AIWorld& aiWorld)
 	, mInterpose(this, 1.0f)
 	, mHide(this, 1.0f)
 	, mPathFollowing(this, 1.0f)
+	, mObstacleAvoidance(this, 1.0f)
 {
 
 }
@@ -24,6 +25,7 @@ Pikachu::~Pikachu()
 void Pikachu::Load()
 {
 	mSteeringModule.AddBehavior(&mSeek);
+	mSteerMode = Agent::SteerMode::kSEEK;
 
 	SetMaxForce(100.0f);
 	SetMaxSpeed(100.0f);
@@ -123,6 +125,10 @@ void Pikachu::SetSteerMode( Agent::SteerMode steerMode)
 	else if (steerMode == kPATHFOLLOWING)
 	{
 		mSteeringModule.AddBehavior(&mPathFollowing);
+	}
+	else if (steerMode == kOBSTACLEAVOIDANCE)
+	{
+		mSteeringModule.AddBehavior(&mObstacleAvoidance);
 	}
 }
 

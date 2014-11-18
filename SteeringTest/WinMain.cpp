@@ -12,6 +12,7 @@ float pikachuSize = 128.0f;
 SGE_Sprite destination;
 SGE_Sprite destinations[10];
 unsigned int destCounter = 0;
+SGE_Font behaviorFonts[10];
 
 SVector2 Wrap(SVector2 vector);
 
@@ -43,6 +44,14 @@ void SGE_Initialize()
 	}
 
 	GenerateAIWorld();
+
+	for (unsigned int i = 0; i < 10; ++i)
+	{
+		behaviorFonts[i].Load(12, false, false);
+		behaviorFonts[i].SetColor(0,0,255);
+	}
+
+	behaviorFonts[0].SetColor(255,0,0);
 }
 
 void SGE_Terminate()
@@ -51,6 +60,10 @@ void SGE_Terminate()
 	destination.Unload();
 	pikachu.Unload();
 	aiWorld.Clear();
+	for (unsigned int i = 0; i < 10; ++i)
+	{
+		behaviorFonts[i].Unload();
+	}
 }
 	
 bool SGE_Update(float deltaTime)
@@ -97,48 +110,73 @@ bool SGE_Update(float deltaTime)
 		 destCounter = 0;
 	}
 
-
 	if (Input_IsKeyPressed(Keys::F1))
 	{
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(0,0,255);
 		pikachu.SetSteerMode(Agent::SteerMode::kSEEK);
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(255,0,0);
 	}
 	else if (Input_IsKeyPressed(Keys::F2))
 	{
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(0,0,255);
 		pikachu.SetSteerMode(Agent::SteerMode::kFLEE);
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(255,0,0);
 	}
 	else if (Input_IsKeyPressed(Keys::F3))
 	{
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(0,0,255);
 		pikachu.SetSteerMode(Agent::SteerMode::kARRIVE);
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(255,0,0);
 	}
 	else if (Input_IsKeyPressed(Keys::F4))
 	{
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(0,0,255);
 		pikachu.SetSteerMode(Agent::SteerMode::kPURSUIT);
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(255,0,0);
 	}
 	else if (Input_IsKeyPressed(Keys::F5))
 	{
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(0,0,255);
 		pikachu.SetSteerMode(Agent::SteerMode::kEVADE);
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(255,0,0);
 	}
 	else if (Input_IsKeyPressed(Keys::F6))
 	{
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(0,0,255);
 		pikachu.SetSteerMode(Agent::SteerMode::kWANDER);
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(255,0,0);
 	}
 	else if (Input_IsKeyPressed(Keys::F7))
 	{
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(0,0,255);
 		pikachu.SetSteerMode(Agent::SteerMode::kINTERPOSE);
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(255,0,0);
 	}
 	else if (Input_IsKeyPressed(Keys::F8))
 	{
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(0,0,255);
 		pikachu.SetSteerMode(Agent::SteerMode::kHIDE);
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(255,0,0);
 	}
 	else if (Input_IsKeyPressed(Keys::F9))
 	{
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(0,0,255);
 		pikachu.SetSteerMode(Agent::SteerMode::kPATHFOLLOWING);
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(255,0,0);
 
 		SVector2 targetDest = pikachu.GetDestination();
 		pikachu.AddDestinationForPathFollowing(targetDest);
 		destinations[destCounter].SetPosition(targetDest);
 		destCounter++;
 	}
+	else if (Input_IsKeyPressed(Keys::F10))
+	{
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(0,0,255);
+		pikachu.SetSteerMode(Agent::SteerMode::kOBSTACLEAVOIDANCE);
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(255,0,0);
+	}
+
+
 	if (Input_IsKeyPressed(Keys::SPACE))
 	{
 		GenerateAIWorld();
@@ -161,6 +199,21 @@ bool SGE_Update(float deltaTime)
 
 void SGE_Render()
 {
+	int screenWidth = IniFile_GetInt("WinWidth", 768.0f);
+	int screenHeight = IniFile_GetInt("WinHeight", 768.0f);
+
+	behaviorFonts[0].Print("F1  - SEEK",				screenWidth - 200.0f,	10.0f);
+	behaviorFonts[1].Print("F2  - FLEE",				screenWidth - 200.0f,	30.0f);
+	behaviorFonts[2].Print("F3  - ARRIVE",				screenWidth - 200.0f,	50.0f);
+	behaviorFonts[3].Print("F4  - PURSUIT",				screenWidth - 200.0f,	70.0f);
+	behaviorFonts[4].Print("F5  - EVADE",				screenWidth - 200.0f,	90.0f);
+	behaviorFonts[5].Print("F6  - WANDER",				screenWidth - 200.0f,	110.0f);
+	behaviorFonts[6].Print("F7  - INTERPOSE",			screenWidth - 200.0f,	130.0f);
+	behaviorFonts[7].Print("F8  - HIDE",				screenWidth - 200.0f,	150.0f);
+	behaviorFonts[8].Print("F9  - PATH FOLLOWING",		screenWidth - 200.0f,	170.0f);
+	behaviorFonts[9].Print("F10 - OBSTACLE AVOIDANCE",	screenWidth - 200.0f,	190.0f);
+	
+	Agent::SteerMode steerMode = pikachu.GetSteerMode();
 	cursor.Render();
 
 	for (unsigned int i = 0; i < destCounter; ++i)
@@ -169,18 +222,26 @@ void SGE_Render()
 	}
 
 	pikachu.Render();
-	if (pikachu.GetSteerMode() == Agent::SteerMode::kPURSUIT || pikachu.GetSteerMode() == Agent::SteerMode::kWANDER)
+	if (steerMode == Agent::SteerMode::kPURSUIT || steerMode == Agent::SteerMode::kWANDER)
 	{
 		destination.Render();
 	}
 
-	if (pikachu.GetSteerMode() == Agent::SteerMode::kWANDER)
+	if (steerMode == Agent::SteerMode::kWANDER)
 	{
 		SCircle circle = pikachu.GetWanderBehavior().GetCircle();
 		Graphics_DebugCircle(circle.center, circle.radius, 0xFF0000);
 	}
 
 	aiWorld.Render();
+
+	if (steerMode == Agent::SteerMode::kOBSTACLEAVOIDANCE)
+	{
+		Graphics_DebugLine(pikachu.GetObstacleAvoidanceBehavior().GetBoundingLineLeft(), 0x00ff00);
+		Graphics_DebugLine(pikachu.GetObstacleAvoidanceBehavior().GetBoundingLineRight(), 0x00ff00);
+		Graphics_DebugLine(pikachu.GetObstacleAvoidanceBehavior().GetBoundingLineLeft().from, pikachu.GetObstacleAvoidanceBehavior().GetBoundingLineRight().from, 0x00ff00);
+		Graphics_DebugLine(pikachu.GetObstacleAvoidanceBehavior().GetBoundingLineLeft().to, pikachu.GetObstacleAvoidanceBehavior().GetBoundingLineRight().to, 0x00ff00);
+	}
 }
 
 SVector2 Wrap(SVector2 vector)

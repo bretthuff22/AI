@@ -25,6 +25,7 @@ public:
 	void AddDestinationForPathFollowing(SVector2 dest);
 	void ClearDestinationsForPathFollowing(); 
 	PathFollowingBehavior GetPathFollowingBehavior()	const	{ return mPathFollowing; }
+	ObstacleAvoidanceBehavior GetObstacleAvoidanceBehavior() const { return mObstacleAvoidance; } 
 
 protected:
 	Agent::SteerMode mSteerMode;
@@ -38,6 +39,7 @@ protected:
 	InterposeBehavior mInterpose;
 	HideBehavior mHide;
 	PathFollowingBehavior mPathFollowing;
+	ObstacleAvoidanceBehavior mObstacleAvoidance;
 
 	SGE_Sprite mSprite;
 };

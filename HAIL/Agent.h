@@ -21,7 +21,8 @@ public:
 		kWANDER,
 		kINTERPOSE,
 		kHIDE,
-		kPATHFOLLOWING
+		kPATHFOLLOWING,
+		kOBSTACLEAVOIDANCE
 	};
 
 	Agent(AIWorld& world);
