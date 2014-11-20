@@ -27,4 +27,5 @@
 #include "HideBehavior.h"
 #include "PathFollowingBehavior.h"
 #include "ObstacleAvoidanceBehavior.h"
+#include "FlockBehavior.h"
 #endif //INCLUDED_HAIL_H

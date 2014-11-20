@@ -29,3 +29,8 @@ SMatrix33 Agent::GetTransform() const
 
 	return transform;
 }
+
+void Agent::AddAgent(Agent& agent)					
+{ 
+	mWorldAgents.push_back(&agent);
+}

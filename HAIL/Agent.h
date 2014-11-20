@@ -3,6 +3,7 @@
 
 #include <SGE.h>
 using namespace SGE;
+#include <list>
 
 class AIWorld;
 
@@ -22,7 +23,8 @@ public:
 		kINTERPOSE,
 		kHIDE,
 		kPATHFOLLOWING,
-		kOBSTACLEAVOIDANCE
+		kOBSTACLEAVOIDANCE,
+		kFLOCK
 	};
 
 	Agent(AIWorld& world);
@@ -47,6 +49,9 @@ public:
 	float GetMaxForce()			const					{return mMaxForce;}
 	float GetMaxSpeed()			const					{return mMaxSpeed;}
 
+	void AddAgent(Agent& agent);
+	std::vector<Agent*> GetAgents()						{ return mWorldAgents; }
+
 private:
 	AIWorld& mWorld;
 	SVector2 mPosition;
@@ -58,6 +63,8 @@ private:
 
 	float mMaxForce;
 	float mMaxSpeed;
+
+	std::vector<Agent*> mWorldAgents;
 
 };
 

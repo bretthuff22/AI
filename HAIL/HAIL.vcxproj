@@ -20,6 +20,7 @@
     <ClInclude Include="DijkstraSearch.h" />
     <ClInclude Include="EvadeBehavior.h" />
     <ClInclude Include="FleeBehavior.h" />
+    <ClInclude Include="FlockBehavior.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="GraphSearch.h" />
     <ClInclude Include="HAIL.h" />
@@ -44,6 +45,7 @@
     <ClCompile Include="DijkstraSearch.cpp" />
     <ClCompile Include="EvadeBehavior.cpp" />
     <ClCompile Include="FleeBehavior.cpp" />
+    <ClCompile Include="FlockBehavior.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="GraphSearch.cpp" />
     <ClCompile Include="HideBehavior.cpp" />

@@ -61,6 +61,9 @@
     <ClInclude Include="ObstacleAvoidanceBehavior.h">
       <Filter>Steering</Filter>
     </ClInclude>
+    <ClInclude Include="FlockBehavior.h">
+      <Filter>Steering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">
@@ -125,6 +128,9 @@
       <Filter>Steering</Filter>
     </ClCompile>
     <ClCompile Include="ObstacleAvoidanceBehavior.cpp">
+      <Filter>Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="FlockBehavior.cpp">
       <Filter>Steering</Filter>
     </ClCompile>
   </ItemGroup>

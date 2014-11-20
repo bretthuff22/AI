@@ -8,11 +8,13 @@ const int kNumObstacles = 3;
 AIWorld aiWorld;
 SGE_Cursor cursor;
 Pikachu pikachu(aiWorld);
+unsigned int kNumPikachus = 30;
+Pikachu* pikachus = new Pikachu(aiWorld)[kNumPikachus];
 float pikachuSize = 128.0f;
 SGE_Sprite destination;
 SGE_Sprite destinations[10];
 unsigned int destCounter = 0;
-SGE_Font behaviorFonts[10];
+SGE_Font behaviorFonts[11];
 
 SVector2 Wrap(SVector2 vector);
 
@@ -31,13 +33,60 @@ void GenerateAIWorld()
 	}
 }
 
+void LoadPikachus()
+{
+	int screenWidth = IniFile_GetInt("WinWidth", 768.0f);
+	int screenHeight = IniFile_GetInt("WinHeight", 768.0f);
+
+	for (int i = 0; i < kNumPikachus; ++i)
+	{
+		pikachus[i].Load();
+
+		const float x = RandomFloat(100.0f, screenWidth - 100.f);
+		const float y = RandomFloat(100.0f, screenHeight - 100.0f);
+		const float dx = RandomFloat(100.0f, screenWidth - 100.f);
+		const float dy = RandomFloat(100.0f, screenHeight - 100.0f);
+		pikachus[i].SetPosition(SVector2(x, y));
+		pikachus[i].SetDestination(SVector2(dx, dy));
+		pikachus[i].SetSteerMode(Agent::SteerMode::kFLOCK);
+		for (int j = 0; j < kNumPikachus; ++j)
+		{
+			pikachus[i].AddAgent(pikachus[j]); // possible pointer issue here
+		}
+	}
+}
+
+void RenderPikachus()
+{
+	for (int i = 0; i < kNumPikachus; ++i)
+	{
+		pikachus[i].Render();
+	}
+}
+
+void UpdatePikachus(float deltaTime)
+{
+	for (int i = 0; i < kNumPikachus; ++i)
+	{
+		pikachus[i].Update(deltaTime);
+	}
+}
+
+void TerminatePikachus()
+{
+	for (int i = 0; i < kNumPikachus; ++i)
+	{
+		pikachus[i].Unload();
+	}
+}
+
 void SGE_Initialize()
 {
 	cursor.Load("cursor.png");	
 	destination.Load("carrot.png");
 	pikachu.Load();
 
-	for (unsigned int i = 0; i < 10; ++i)
+	for (unsigned int i = 0; i < 11; ++i)
 	{
 		destinations[i].Load("bullet2.png");
 		destinations[i].SetPosition(-1.0f, -1.0f);
@@ -45,13 +94,15 @@ void SGE_Initialize()
 
 	GenerateAIWorld();
 
-	for (unsigned int i = 0; i < 10; ++i)
+	for (unsigned int i = 0; i < 11; ++i)
 	{
 		behaviorFonts[i].Load(12, false, false);
 		behaviorFonts[i].SetColor(0,0,255);
 	}
 
 	behaviorFonts[0].SetColor(255,0,0);
+
+	LoadPikachus();
 }
 
 void SGE_Terminate()
@@ -64,6 +115,8 @@ void SGE_Terminate()
 	{
 		behaviorFonts[i].Unload();
 	}
+
+	TerminatePikachus();
 }
 	
 bool SGE_Update(float deltaTime)
@@ -109,6 +162,14 @@ bool SGE_Update(float deltaTime)
 	{
 		 destCounter = 0;
 	}
+
+	if (steerMode == Agent::SteerMode::kFLOCK)
+	{
+		RenderPikachus();
+	}
+
+
+
 
 	if (Input_IsKeyPressed(Keys::F1))
 	{
@@ -175,6 +236,12 @@ bool SGE_Update(float deltaTime)
 		pikachu.SetSteerMode(Agent::SteerMode::kOBSTACLEAVOIDANCE);
 		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(255,0,0);
 	}
+	else if (Input_IsKeyPressed(Keys::F11))
+	{
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(0,0,255);
+		pikachu.SetSteerMode(Agent::SteerMode::kFLOCK);
+		behaviorFonts[pikachu.GetSteerMode() - Agent::SteerMode::kSEEK].SetColor(255,0,0);
+	}
 
 
 	if (Input_IsKeyPressed(Keys::SPACE))
@@ -212,6 +279,7 @@ void SGE_Render()
 	behaviorFonts[7].Print("F8  - HIDE",				screenWidth - 200.0f,	150.0f);
 	behaviorFonts[8].Print("F9  - PATH FOLLOWING",		screenWidth - 200.0f,	170.0f);
 	behaviorFonts[9].Print("F10 - OBSTACLE AVOIDANCE",	screenWidth - 200.0f,	190.0f);
+	behaviorFonts[10].Print("F11 - FLOCK",				screenWidth - 200.0f,	210.0f);
 	
 	Agent::SteerMode steerMode = pikachu.GetSteerMode();
 	cursor.Render();

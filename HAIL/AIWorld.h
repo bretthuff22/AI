@@ -2,6 +2,7 @@
 #define INCLUDED_AI_AIWorld_H
 
 #include <SGE.h>
+
 using namespace SGE;
 
 class AIWorld
