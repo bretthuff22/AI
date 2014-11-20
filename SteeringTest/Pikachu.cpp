@@ -14,7 +14,9 @@ Pikachu::Pikachu(AIWorld& aiWorld)
 	, mHide(this, 1.0f)
 	, mPathFollowing(this, 1.0f)
 	, mObstacleAvoidance(this, 1.0f)
-	, mFlock(this, 1.0f)
+	, mSeparation(this, 1.0f)
+	, mCohesion(this, 1.0f)
+	, mAlignment(this, 1.0f)
 {
 
 }
@@ -131,9 +133,17 @@ void Pikachu::SetSteerMode( Agent::SteerMode steerMode)
 	{
 		mSteeringModule.AddBehavior(&mObstacleAvoidance);
 	}
-	else if (steerMode == kFLOCK)
+	else if (steerMode == kSEPARATION)
 	{
-		mSteeringModule.AddBehavior(&mObstacleAvoidance);
+		mSteeringModule.AddBehavior(&mSeparation);
+	}
+	else if (steerMode == kCOHESION)
+	{
+		mSteeringModule.AddBehavior(&mCohesion);
+	}
+	else if (steerMode == kALIGNMENT)
+	{
+		mSteeringModule.AddBehavior(&mAlignment);
 	}
 }
 

@@ -24,7 +24,9 @@ public:
 		kHIDE,
 		kPATHFOLLOWING,
 		kOBSTACLEAVOIDANCE,
-		kFLOCK
+		kSEPARATION,
+		kCOHESION,
+		kALIGNMENT
 	};
 
 	Agent(AIWorld& world);

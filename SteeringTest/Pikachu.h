@@ -40,7 +40,9 @@ protected:
 	HideBehavior mHide;
 	PathFollowingBehavior mPathFollowing;
 	ObstacleAvoidanceBehavior mObstacleAvoidance;
-	FlockBehavior mFlock;
+	SeparationBehavior mSeparation;
+	CohesionBehavior mCohesion;
+	AlignmentBehavior mAlignment;
 
 	SGE_Sprite mSprite;
 };

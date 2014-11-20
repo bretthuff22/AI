@@ -61,7 +61,13 @@
     <ClInclude Include="ObstacleAvoidanceBehavior.h">
       <Filter>Steering</Filter>
     </ClInclude>
-    <ClInclude Include="FlockBehavior.h">
+    <ClInclude Include="SeparationBehavior.h">
+      <Filter>Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="CohesionBehavior.h">
+      <Filter>Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="AlignmentBehavior.h">
       <Filter>Steering</Filter>
     </ClInclude>
   </ItemGroup>
@@ -130,7 +136,13 @@
     <ClCompile Include="ObstacleAvoidanceBehavior.cpp">
       <Filter>Steering</Filter>
     </ClCompile>
-    <ClCompile Include="FlockBehavior.cpp">
+    <ClCompile Include="SeparationBehavior.cpp">
+      <Filter>Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="CohesionBehavior.cpp">
+      <Filter>Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="AlignmentBehavior.cpp">
       <Filter>Steering</Filter>
     </ClCompile>
   </ItemGroup>

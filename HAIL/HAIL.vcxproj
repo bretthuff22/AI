@@ -13,14 +13,15 @@
   <ItemGroup>
     <ClInclude Include="Agent.h" />
     <ClInclude Include="AIWorld.h" />
+    <ClInclude Include="AlignmentBehavior.h" />
     <ClInclude Include="ArriveBehavior.h" />
     <ClInclude Include="AStarSearch.h" />
     <ClInclude Include="BreadthFirstSearch.h" />
+    <ClInclude Include="CohesionBehavior.h" />
     <ClInclude Include="DepthFirstSearch.h" />
     <ClInclude Include="DijkstraSearch.h" />
     <ClInclude Include="EvadeBehavior.h" />
     <ClInclude Include="FleeBehavior.h" />
-    <ClInclude Include="FlockBehavior.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="GraphSearch.h" />
     <ClInclude Include="HAIL.h" />
@@ -31,6 +32,7 @@
     <ClInclude Include="PathFollowingBehavior.h" />
     <ClInclude Include="PursuitBehavior.h" />
     <ClInclude Include="SeekBehavior.h" />
+    <ClInclude Include="SeparationBehavior.h" />
     <ClInclude Include="SteeringBehavior.h" />
     <ClInclude Include="SteeringModule.h" />
     <ClInclude Include="WanderBehavior.h" />
@@ -38,14 +40,15 @@
   <ItemGroup>
     <ClCompile Include="Agent.cpp" />
     <ClCompile Include="AIWorld.cpp" />
+    <ClCompile Include="AlignmentBehavior.cpp" />
     <ClCompile Include="ArriveBehavior.cpp" />
     <ClCompile Include="AStarSearch.cpp" />
     <ClCompile Include="BreadthFirstSearch.cpp" />
+    <ClCompile Include="CohesionBehavior.cpp" />
     <ClCompile Include="DepthFirstSearch.cpp" />
     <ClCompile Include="DijkstraSearch.cpp" />
     <ClCompile Include="EvadeBehavior.cpp" />
     <ClCompile Include="FleeBehavior.cpp" />
-    <ClCompile Include="FlockBehavior.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="GraphSearch.cpp" />
     <ClCompile Include="HideBehavior.cpp" />
@@ -54,6 +57,7 @@
     <ClCompile Include="PathFollowingBehavior.cpp" />
     <ClCompile Include="PursuitBehavior.cpp" />
     <ClCompile Include="SeekBehavior.cpp" />
+    <ClCompile Include="SeparationBehavior.cpp" />
     <ClCompile Include="SteeringBehavior.cpp" />
     <ClCompile Include="SteeringModule.cpp" />
     <ClCompile Include="WanderBehavior.cpp" />
