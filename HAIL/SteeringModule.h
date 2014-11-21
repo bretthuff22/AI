@@ -15,6 +15,7 @@ public:
 
 	void AddBehavior(SteeringBehavior* behavior);
 	void PopBehavior();
+	void Clear();
 	SVector2 Update(float deltaTime);
 
 private:

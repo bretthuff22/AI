@@ -89,9 +89,67 @@ void Pikachu::Render()
 
 void Pikachu::SetSteerMode( Agent::SteerMode steerMode)
 {
-	mSteeringModule.PopBehavior();
+	mSteeringModule.Clear();
 	mSteerMode = steerMode;
 	mPathFollowing.Clear();
+
+	if (steerMode == kSEEK)
+	{
+		mSteeringModule.AddBehavior(&mSeek);
+	}
+	else if (steerMode == kFLEE)
+	{
+		mSteeringModule.AddBehavior(&mFlee);
+	}
+	else if (steerMode == kARRIVE)
+	{
+		mSteeringModule.AddBehavior(&mArrive);
+	}
+	else if (steerMode == kPURSUIT)
+	{
+		mSteeringModule.AddBehavior(&mPursuit);
+	}
+	else if (steerMode == kEVADE)
+	{
+		mSteeringModule.AddBehavior(&mEvade);
+	}
+	else if (steerMode == kWANDER)
+	{
+		mSteeringModule.AddBehavior(&mWander);
+	}
+	else if (steerMode == kINTERPOSE)
+	{
+		mSteeringModule.AddBehavior(&mInterpose);
+	}
+	else if (steerMode == kHIDE)
+	{
+		mSteeringModule.AddBehavior(&mHide);
+	}
+	else if (steerMode == kPATHFOLLOWING)
+	{
+		mSteeringModule.AddBehavior(&mPathFollowing);
+	}
+	else if (steerMode == kOBSTACLEAVOIDANCE)
+	{
+		mSteeringModule.AddBehavior(&mObstacleAvoidance);
+	}
+	else if (steerMode == kSEPARATION)
+	{
+		mSteeringModule.AddBehavior(&mSeparation);
+	}
+	else if (steerMode == kCOHESION)
+	{
+		mSteeringModule.AddBehavior(&mCohesion);
+	}
+	else if (steerMode == kALIGNMENT)
+	{
+		mSteeringModule.AddBehavior(&mAlignment);
+	}
+}
+
+void Pikachu::AddSteerMode( Agent::SteerMode steerMode)
+{
+	mSteerMode = steerMode;
 
 	if (steerMode == kSEEK)
 	{

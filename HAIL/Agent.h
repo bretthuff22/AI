@@ -26,7 +26,8 @@ public:
 		kOBSTACLEAVOIDANCE,
 		kSEPARATION,
 		kCOHESION,
-		kALIGNMENT
+		kALIGNMENT,
+		kFLOCK
 	};
 
 	Agent(AIWorld& world);

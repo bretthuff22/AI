@@ -17,6 +17,7 @@ public:
 	void Render();
 
 	void SetSteerMode( Agent::SteerMode steerMode);
+	void AddSteerMode( Agent::SteerMode steerMode);
 	
 	Agent::SteerMode GetSteerMode()						const	{ return mSteerMode; }
 	PursuitBehavior GetPursuitBehavior()				const	{ return mPursuit; }

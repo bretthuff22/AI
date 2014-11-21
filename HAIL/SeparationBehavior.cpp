@@ -28,7 +28,7 @@ SVector2 SeparationBehavior::Update(float deltaTime)
 			vectorAway = Normalize(vectorAway);
 
 			// STEP 3 - Divide by distance from neighbor
-			vectorAway /= dist;
+			//vectorAway /= dist;
 
 			// STEP 4 - Accumulate in steering force
 			steeringForce += vectorAway;
