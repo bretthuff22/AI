@@ -63,7 +63,10 @@ void LoadPikachus()
 	{
 		for (int j = 0; j < kNumPikachus; ++j)
 		{
-			pikachus[i]->AddAgent(*pikachus[j]); 
+			if (i != j)
+			{
+				pikachus[i]->AddAgent(*pikachus[j]);
+			}
 		}
 	}
 }

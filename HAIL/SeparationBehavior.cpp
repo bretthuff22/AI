@@ -11,13 +11,14 @@ SeparationBehavior::SeparationBehavior(Agent* pAgent, float weight)
 SVector2 SeparationBehavior::Update(float deltaTime)
 {
 	SVector2 steeringForce = SVector2(0.0f, 0.0f);
-
-	unsigned int size = mpAgent->GetAgents().size();
+	
+	const std::vector<Agent*>& agents = mpAgent->GetAgents();
+	unsigned int size = agents.size();
 	for (unsigned int i = 0; i < size; ++i)
 	{
 		// STEP 0 - Find neighbors
 		SVector2 position = mpAgent->GetPosition();
-		SVector2 neighborPos = mpAgent->GetAgents()[i]->GetPosition();
+		SVector2 neighborPos = agents[i]->GetPosition();
 		float dist = Distance(position, neighborPos);
 		if (dist < 200.0f && dist != 0.0f) // 200 pixels
 		{

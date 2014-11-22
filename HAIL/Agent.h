@@ -53,7 +53,7 @@ public:
 	float GetMaxSpeed()			const					{return mMaxSpeed;}
 
 	void AddAgent(Agent& agent);
-	std::vector<Agent*> GetAgents()						{ return mWorldAgents; }
+	const std::vector<Agent*>& GetAgents() const		{ return mWorldAgents; }
 
 private:
 	AIWorld& mWorld;
