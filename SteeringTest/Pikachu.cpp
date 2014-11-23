@@ -33,7 +33,7 @@ void Pikachu::Load()
 	SetMaxForce(100.0f);
 	SetMaxSpeed(100.0f);
 
-	mSprite.Load("pikachu.png");
+	mSprite.Load("bullet2.png");
 }
 
 void Pikachu::Unload()
