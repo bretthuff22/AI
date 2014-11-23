@@ -13,7 +13,7 @@ SVector2 CohesionBehavior::Update(float deltaTime)
 	SVector2 totalPosition = SVector2(0.0f, 0.0f);
 	unsigned int numNeighbors = 0;
 	
-	const std::vector<Agent*>& agents = mpAgent->GetAgents();
+	const std::vector<Agent*>& agents = mpAgent->GetWorld().GetAgents();
 	unsigned int size = agents.size();
 	for (unsigned int i = 0; i < size; ++i)
 	{

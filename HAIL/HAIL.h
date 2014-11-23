@@ -30,4 +30,5 @@
 #include "SeparationBehavior.h"
 #include "CohesionBehavior.h"
 #include "AlignmentBehavior.h"
+
 #endif //INCLUDED_HAIL_H

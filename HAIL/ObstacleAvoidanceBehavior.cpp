@@ -13,7 +13,7 @@ ObstacleAvoidanceBehavior::ObstacleAvoidanceBehavior(Agent* pAgent, float weight
 SVector2 ObstacleAvoidanceBehavior::Update(float deltaTime)
 {
 	// STEP 0: create bounding rectangle using two parallel lines (will draw last two lines in render function)
-	float boundingWidth = 60.0f;
+	float boundingWidth = 70.0f;
 	SVector2 offset = Normalize(mpAgent->GetVelocity()) * 0.5f * boundingWidth;
 	offset.PerpendicularLH();
 	mBoundingLineLeft = SLineSegment(mpAgent->GetPosition() - offset, mpAgent->GetVelocity() + mpAgent->GetPosition() - offset);
@@ -79,14 +79,19 @@ SVector2 ObstacleAvoidanceBehavior::Update(float deltaTime)
 						pointToAvoidOverall = pointToAvoid;
 				
 						// STEP 8: compute lateral force
-						lateralForce.y = 10.0f*Length(mpAgent->GetVelocity()) - pointToAvoid.x;
+						lateralForce.y = 10.0f*(Length(mpAgent->GetVelocity()) - pointToAvoid.x);
 						if (circle.center.y > 0.0f)
 						{
 							lateralForce.y*= -1.0f;
 						}
+						else
+						{
+							int i = 1;
+							i++;
+						}
 
 						// STEP 9: compute braking force
-						brakingForce.x = pointToAvoid.x - 10*Length(mpAgent->GetVelocity());
+						brakingForce.x = 10.0f*(pointToAvoid.x - Length(mpAgent->GetVelocity()));
 					}
 				}
 			}
@@ -104,6 +109,7 @@ SVector2 ObstacleAvoidanceBehavior::Update(float deltaTime)
 
 	// SEEK
 	SVector2 positionToDestination = mpAgent->GetDestination() - mpAgent->GetPosition();
+	positionToDestination = Normalize(positionToDestination);
 	SVector2 desiredVelocity = Normalize(positionToDestination + lateralForce + brakingForce) * mpAgent->GetMaxSpeed();
 	SVector2 force = desiredVelocity - mpAgent->GetVelocity();
 	return force;

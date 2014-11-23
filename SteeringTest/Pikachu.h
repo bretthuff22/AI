@@ -11,13 +11,13 @@ public:
 	Pikachu(AIWorld& aiWorld);
 	~Pikachu();
 
-	void Load();
-	void Unload();
-	void Update(float deltaTime);
-	void Render();
+	virtual void Load();
+	virtual void Unload();
+	virtual void Update(float deltaTime);
+	virtual void Render();
 
-	void SetSteerMode( Agent::SteerMode steerMode);
-	void AddSteerMode( Agent::SteerMode steerMode);
+	virtual void SetSteerMode( Agent::SteerMode steerMode);
+	virtual void AddSteerMode( Agent::SteerMode steerMode);
 	
 	Agent::SteerMode GetSteerMode()						const	{ return mSteerMode; }
 	PursuitBehavior GetPursuitBehavior()				const	{ return mPursuit; }

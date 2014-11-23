@@ -2,6 +2,7 @@
 #define INCLUDED_AI_CohesionBehavior_H
 
 #include "SteeringBehavior.h"
+#include "AIWorld.h"
 
 class CohesionBehavior : public SteeringBehavior
 {

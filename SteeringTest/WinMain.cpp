@@ -1,16 +1,15 @@
 #include <HAIL.h>
 #include <SGE.h>
+#include "Pikachu.h"
+#include "PokemonFactory.h"
 using namespace SGE;
 
-#include "Pikachu.h"
-
 const int kNumObstacles = 3;
-AIWorld aiWorld;
+unsigned int kNumPikachus = 50;
+PokemonFactory factory;
+AIWorld aiWorld(factory, Agent::AgentType::kPIKACHU, kNumPikachus, 768.0f, 768.0f);
 SGE_Cursor cursor;
 Pikachu pikachu(aiWorld);
-unsigned int kNumPikachus = 30;
-//Pikachu& pikachus = new Pikachu(aiWorld)[kNumPikachus];
-//Pikachu** pikachus = new Pikachu*[kNumPikachus];
 std::vector<Pikachu*> pikachus;
 float pikachuSize = 128.0f;
 SGE_Sprite destination;
@@ -27,6 +26,7 @@ void GenerateAIWorld()
 	int screenHeight = IniFile_GetInt("WinHeight", 768.0f);
 
 	aiWorld.Clear();
+	//aiWorld = AIWorld(factory, Agent::AgentType::kPIKACHU, kNumPikachus, screenWidth, screenHeight);
 	for (int i = 0; i < kNumObstacles; ++i)
 	{
 		const float x = RandomFloat(100.0f, screenWidth - 100.f);
@@ -34,107 +34,111 @@ void GenerateAIWorld()
 		const float r = RandomFloat(20.0f, 100.0f);
 		aiWorld.AddObstacle(SVector2(x, y), r);
 	}
-}
-
-void LoadPikachus()
-{
-	int screenWidth = IniFile_GetInt("WinWidth", 768.0f);
-	int screenHeight = IniFile_GetInt("WinHeight", 768.0f);
 
 	for (int i = 0; i < kNumPikachus; ++i)
 	{
-		pikachus.push_back(new Pikachu(aiWorld));
+		Agent* newAgent = aiWorld.CreateAgent(Agent::AgentType::kPIKACHU);
 
-		pikachus[i]->Load();
-
-		const float x = RandomFloat(100.0f, screenWidth - 100.f);
-		const float y = RandomFloat(100.0f, screenHeight - 100.0f);
-		//const float dx = RandomFloat(100.0f, screenWidth - 100.f);
-		//const float dy = RandomFloat(100.0f, screenHeight - 100.0f);
-		const float hx = RandomFloat(100.0f, screenWidth - 100.f);
-		const float hy = RandomFloat(100.0f, screenHeight - 100.0f);
-		pikachus[i]->SetPosition(SVector2(x, y));
-		//pikachus[i]->SetDestination(SVector2(dx, dy));
-		pikachus[i]->SetHeading(SVector2(hx, hy));
-		pikachus[i]->SetSteerMode(Agent::SteerMode::kSEEK);
-	}
-
-	for (int i = 0; i < kNumPikachus; ++i)
-	{
-		for (int j = 0; j < kNumPikachus; ++j)
-		{
-			if (i != j)
-			{
-				pikachus[i]->AddAgent(*pikachus[j]);
-			}
-		}
 	}
 }
 
-void RenderPikachus()
-{
-	for (int i = 0; i < kNumPikachus; ++i)
-	{
-		pikachus[i]->Render();
-	}
-}
+//void LoadPikachus()
+//{
+//	int screenWidth = IniFile_GetInt("WinWidth", 768.0f);
+//	int screenHeight = IniFile_GetInt("WinHeight", 768.0f);
 
-void SetSteerModePikachus(Agent::SteerMode mode)
-{
-	for (int i = 0; i < kNumPikachus; ++i)
-	{
-		pikachus[i]->SetSteerMode(mode);
-	}
-}
+	//for (int i = 0; i < kNumPikachus; ++i)
+	//{
+	//	pikachus.push_back(new Pikachu(aiWorld));
 
-void AddSteerModePikachus(Agent::SteerMode mode)
-{
-	for (int i = 0; i < kNumPikachus; ++i)
-	{
-		pikachus[i]->AddSteerMode(mode);
-	}
-}
-void UpdatePikachus(float deltaTime)
-{
-	for (int i = 0; i < kNumPikachus; ++i)
-	{
-		pikachus[i]->Update(deltaTime);
-	}
-}
+	//	pikachus[i]->Load();
 
-void SetDestinationPikachus(SVector2 dest)
-{
-	for (int i = 0; i < kNumPikachus; ++i)
-	{
-		pikachus[i]->SetDestination(dest);
-	}
-}
+	//	const float x = RandomFloat(100.0f, screenWidth - 100.f);
+	//	const float y = RandomFloat(100.0f, screenHeight - 100.0f);
+	//	const float hx = RandomFloat(100.0f, screenWidth - 100.f);
+	//	const float hy = RandomFloat(100.0f, screenHeight - 100.0f);
+	//	pikachus[i]->SetPosition(SVector2(x, y));
+	//	pikachus[i]->SetHeading(SVector2(hx, hy));
+	//	pikachus[i]->SetSteerMode(Agent::SteerMode::kSEEK);
+	//}
 
-void SetMaxSpeedPikachus(float speed)
-{
-	for (int i = 0; i < kNumPikachus; ++i)
-	{
-		pikachus[i]->SetMaxSpeed(speed);
-	}
-}
+	//for (int i = 0; i < kNumPikachus; ++i)
+	//{
+	//	for (int j = 0; j < kNumPikachus; ++j)
+	//	{
+	//		if (i != j)
+	//		{
+	//			pikachus[i]->AddAgent(*pikachus[j]);
+	//		}
+	//	}
+	//}
+//}
 
-void ClearPikachus()
-{
-	for (int i = 0; i < kNumPikachus; ++i)
-	{
-		pikachus[i]->SetSteerMode(Agent::SteerMode::kNONE);
-	}
-}
+//void aiWorld.RenderAgents()
+//{
+//	for (int i = 0; i < kNumPikachus; ++i)
+//	{
+//		pikachus[i]->Render();
+//	}
+//}
 
-void TerminatePikachus()
-{
-	for (int i = 0; i < kNumPikachus; ++i)
-	{
-		pikachus[i]->Unload();
-	}
+//void aiWorld.SetSteerMode(Agent::SteerMode mode)
+//{
+//	for (int i = 0; i < kNumPikachus; ++i)
+//	{
+//		pikachus[i]->SetSteerMode(mode);
+//	}
+//}
 
-	pikachus.clear();
-}
+//void aiWorld.AddSteerMode(Agent::SteerMode mode)
+//{
+//	for (int i = 0; i < kNumPikachus; ++i)
+//	{
+//		pikachus[i]->AddSteerMode(mode);
+//	}
+//}
+
+//void UpdatePikachus(float deltaTime)
+//{
+//	for (int i = 0; i < kNumPikachus; ++i)
+//	{
+//		pikachus[i]->Update(deltaTime);
+//	}
+//}
+
+//void SetDestinationPikachus(SVector2 dest)
+//{
+//	for (int i = 0; i < kNumPikachus; ++i)
+//	{
+//		pikachus[i]->SetDestination(dest);
+//	}
+//}
+
+//void aiWorld.SetMaxSpeed(float speed)
+//{
+//	for (int i = 0; i < kNumPikachus; ++i)
+//	{
+//		pikachus[i]->SetMaxSpeed(speed);
+//	}
+//}
+
+//void ClearAgents()
+//{
+//	for (int i = 0; i < kNumPikachus; ++i)
+//	{
+//		pikachus[i]->SetSteerMode(Agent::SteerMode::kNONE);
+//	}
+//}
+//
+//void TerminatePikachus()
+//{
+//	for (int i = 0; i < kNumPikachus; ++i)
+//	{
+//		pikachus[i]->Unload();
+//	}
+//
+//	pikachus.clear();
+//}
 
 void SGE_Initialize()
 {
@@ -157,8 +161,6 @@ void SGE_Initialize()
 	}
 
 	behaviorFonts[0].SetColor(255,0,0);
-
-	LoadPikachus();
 }
 
 void SGE_Terminate()
@@ -171,8 +173,6 @@ void SGE_Terminate()
 	{
 		behaviorFonts[i].Unload();
 	}
-
-	TerminatePikachus();
 }
 	
 bool SGE_Update(float deltaTime)
@@ -183,7 +183,7 @@ bool SGE_Update(float deltaTime)
 	if (steerMode != Agent::SteerMode::kWANDER && steerMode != Agent::SteerMode::kINTERPOSE && steerMode != Agent::SteerMode::kPATHFOLLOWING)
 	{
 		pikachu.SetDestination(SVector2((int)Input_GetMouseScreenX(), (int)Input_GetMouseScreenY()));
-		SetDestinationPikachus(SVector2((int)Input_GetMouseScreenX(), (int)Input_GetMouseScreenY()));
+		aiWorld.SetDestination(SVector2((int)Input_GetMouseScreenX(), (int)Input_GetMouseScreenY()));
 	}
 	else if (steerMode == Agent::SteerMode::kWANDER)
 	{
@@ -222,7 +222,7 @@ bool SGE_Update(float deltaTime)
 
 	if (steerMode == Agent::SteerMode::kSEPARATION || steerMode == Agent::SteerMode::kCOHESION || steerMode == Agent::SteerMode::kALIGNMENT)
 	{
-		UpdatePikachus(deltaTime);
+		aiWorld.Update(deltaTime);
 	}
 
 	if (Input_IsKeyPressed(Keys::F1) && !Input_IsKeyDown(Keys::LSHIFT))
@@ -305,7 +305,7 @@ bool SGE_Update(float deltaTime)
 		behaviorFonts[13].SetColor(0,0,255);
 		behaviorFonts[(pikachu.GetSteerMode() - Agent::SteerMode::kSEEK)%kNumFonts].SetColor(0,0,255);
 		pikachu.SetSteerMode(Agent::SteerMode::kSEPARATION);
-		SetSteerModePikachus(Agent::SteerMode::kSEPARATION);
+		aiWorld.SetSteerMode(Agent::SteerMode::kSEPARATION);
 		behaviorFonts[(pikachu.GetSteerMode() - Agent::SteerMode::kSEEK)%kNumFonts].SetColor(255,0,0);
 	}
 	else if (Input_IsKeyPressed(Keys::F2) && Input_IsKeyDown(Keys::LSHIFT))
@@ -313,7 +313,7 @@ bool SGE_Update(float deltaTime)
 		behaviorFonts[13].SetColor(0,0,255);
 		behaviorFonts[(pikachu.GetSteerMode() - Agent::SteerMode::kSEEK)%kNumFonts].SetColor(0,0,255);
 		pikachu.SetSteerMode(Agent::SteerMode::kCOHESION);
-		SetSteerModePikachus(Agent::SteerMode::kCOHESION);
+		aiWorld.SetSteerMode(Agent::SteerMode::kCOHESION);
 		behaviorFonts[(pikachu.GetSteerMode() - Agent::SteerMode::kSEEK)%kNumFonts].SetColor(255,0,0);
 	}
 	else if (Input_IsKeyPressed(Keys::F3) && Input_IsKeyDown(Keys::LSHIFT))
@@ -321,7 +321,7 @@ bool SGE_Update(float deltaTime)
 		behaviorFonts[13].SetColor(0,0,255);
 		behaviorFonts[(pikachu.GetSteerMode() - Agent::SteerMode::kSEEK)%kNumFonts].SetColor(0,0,255);
 		pikachu.SetSteerMode(Agent::SteerMode::kALIGNMENT);
-		SetSteerModePikachus(Agent::SteerMode::kALIGNMENT);
+		aiWorld.SetSteerMode(Agent::SteerMode::kALIGNMENT);
 		behaviorFonts[(pikachu.GetSteerMode() - Agent::SteerMode::kSEEK)%kNumFonts].SetColor(255,0,0);
 	}
 	else if (Input_IsKeyPressed(Keys::F4) && Input_IsKeyDown(Keys::LSHIFT))
@@ -330,9 +330,9 @@ bool SGE_Update(float deltaTime)
 		pikachu.AddSteerMode(Agent::SteerMode::kSEPARATION);
 		pikachu.AddSteerMode(Agent::SteerMode::kCOHESION);
 		pikachu.AddSteerMode(Agent::SteerMode::kALIGNMENT);
-		AddSteerModePikachus(Agent::SteerMode::kSEPARATION);
-		AddSteerModePikachus(Agent::SteerMode::kCOHESION);
-		AddSteerModePikachus(Agent::SteerMode::kALIGNMENT);
+		aiWorld.AddSteerMode(Agent::SteerMode::kSEPARATION);
+		aiWorld.AddSteerMode(Agent::SteerMode::kCOHESION);
+		aiWorld.AddSteerMode(Agent::SteerMode::kALIGNMENT);
 		behaviorFonts[13].SetColor(255,0,0);
 		behaviorFonts[14].SetColor(255,0,0);
 	}
@@ -341,7 +341,7 @@ bool SGE_Update(float deltaTime)
 	{
 		behaviorFonts[(pikachu.GetSteerMode() - Agent::SteerMode::kSEEK)%kNumFonts].SetColor(0,0,255);
 		pikachu.SetSteerMode(Agent::SteerMode::kNONE);
-		ClearPikachus();
+		aiWorld.ClearAgents();
 		behaviorFonts[13].SetColor(0,0,255);
 		behaviorFonts[14].SetColor(255,0,0);
 	}
@@ -355,14 +355,14 @@ bool SGE_Update(float deltaTime)
 	{
 		float speed = pikachu.GetMaxSpeed() + 100.0f;
 		pikachu.SetMaxSpeed(speed);
-		SetMaxSpeedPikachus(speed);
+		aiWorld.SetMaxSpeed(speed);
 	}
 
 	if (Input_IsKeyPressed(Keys::COMMA))
 	{
 		float speed = Max(pikachu.GetMaxSpeed() - 100.0f, 0.0f);
 		pikachu.SetMaxSpeed(speed);
-		SetMaxSpeedPikachus(speed);
+		aiWorld.SetMaxSpeed(speed);
 	}
 
 	pikachu.Update(deltaTime);
@@ -407,7 +407,7 @@ void SGE_Render()
 	}
 	else
 	{
-		RenderPikachus();
+		aiWorld.RenderAgents();
 	}
 
 	if (steerMode == Agent::SteerMode::kPURSUIT || steerMode == Agent::SteerMode::kWANDER)

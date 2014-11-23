@@ -12,7 +12,7 @@ SVector2 SeparationBehavior::Update(float deltaTime)
 {
 	SVector2 steeringForce = SVector2(0.0f, 0.0f);
 	
-	const std::vector<Agent*>& agents = mpAgent->GetAgents();
+	const std::vector<Agent*>& agents = mpAgent->GetWorld().GetAgents();
 	unsigned int size = agents.size();
 	for (unsigned int i = 0; i < size; ++i)
 	{

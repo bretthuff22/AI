@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pikachu.h" />
+    <ClInclude Include="PokemonFactory.h" />
     <ClInclude Include="TileMap.h" />
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 #define INCLUDED_AI_AlignmentBehavior_H
 
 #include "SteeringBehavior.h"
+#include "AIWorld.h"
 
 class AlignmentBehavior : public SteeringBehavior
 {

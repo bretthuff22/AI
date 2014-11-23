@@ -2,6 +2,7 @@
 #define INCLUDED_AI_SeparationBehavior_H
 
 #include "SteeringBehavior.h"
+#include "AIWorld.h"
 
 class SeparationBehavior : public SteeringBehavior
 {

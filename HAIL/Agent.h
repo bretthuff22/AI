@@ -30,6 +30,12 @@ public:
 		kFLOCK
 	};
 
+	enum AgentType
+	{
+		kDEFAULT,
+		kPIKACHU
+	};
+
 	Agent(AIWorld& world);
 	virtual ~Agent();
 
@@ -52,8 +58,12 @@ public:
 	float GetMaxForce()			const					{return mMaxForce;}
 	float GetMaxSpeed()			const					{return mMaxSpeed;}
 
-	void AddAgent(Agent& agent);
-	const std::vector<Agent*>& GetAgents() const		{ return mWorldAgents; }
+	virtual void Load() {}
+	virtual void SetSteerMode( Agent::SteerMode steerMode) {}
+	virtual void AddSteerMode( Agent::SteerMode steerMode) {}
+	virtual void Render() {}
+	virtual void Update(float deltaTime) {}
+	virtual void Unload() {}
 
 private:
 	AIWorld& mWorld;
@@ -67,7 +77,7 @@ private:
 	float mMaxForce;
 	float mMaxSpeed;
 
-	std::vector<Agent*> mWorldAgents;
+	//std::vector<Agent*> mWorldAgents;
 
 };
 
