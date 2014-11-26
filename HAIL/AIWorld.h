@@ -29,22 +29,31 @@ public:
 	void Render();
 	void RenderAgents();
 
+	void SetScreenSize(unsigned int width, unsigned int height)		{ mWidth = width; mHeight = height;}
 	void SetSteerMode(Agent::SteerMode mode);
 	void AddSteerMode(Agent::SteerMode mode);
 	void Update(float deltaTime);
 	void SetDestination(SVector2 dest);
 	void SetMaxSpeed(float speed);
 	void ClearAgents();
+	void UpdateNeighborQuads();
 
+	SVector2 Wrap(SVector2 vector);
 
 
 	const Obstacles& GetObstacles() const	{ return mObstacles; }
+	const std::vector<Agent*>& GetNearbyAgents( SVector2 pos ) const;
 
 private:
 	AgentFactory& mFactory;
 
 	Obstacles mObstacles;
 	std::vector<Agent*> mAgents;
+	std::vector<Agent*> mAgentQuads[8][8];
+	std::vector<Agent*> mNearbyQuads[8][8];
+	std::vector<Agent*> mNearbyAgents;
+	unsigned int mWidth;
+	unsigned int mHeight;
 
 };
 

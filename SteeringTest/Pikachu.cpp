@@ -33,7 +33,7 @@ void Pikachu::Load()
 	SetMaxForce(100.0f);
 	SetMaxSpeed(100.0f);
 
-	mSprite.Load("bullet2.png");
+	mSprite.Load("pikachu.png");
 }
 
 void Pikachu::Unload()
@@ -51,18 +51,20 @@ void Pikachu::Update(float deltaTime)
 	SetVelocity(vel);
 	SVector2 pos = GetPosition() + vel * deltaTime;
 
-	int width = IniFile_GetInt("WinWidth", 768.0f);
-	int height = IniFile_GetInt("WinHeight", 768.0f);
+	pos = GetWorld().Wrap(pos);
 
-	if (pos.x < -100.0f || pos.x > width)
-	{
-		pos.x = ((int)pos.x + width) % width;
-	}
+	//int width = IniFile_GetInt("WinWidth", 768.0f);
+	//int height = IniFile_GetInt("WinHeight", 768.0f);
 
-	if (pos.y < -100.0f || pos.y > height)
-	{
-		pos.y = ((int)pos.y + height) % height;
-	}
+	//if (pos.x < -100.0f || pos.x > width)
+	//{
+	//	pos.x = ((int)pos.x + width) % width;
+	//}
+
+	//if (pos.y < -100.0f || pos.y > height)
+	//{
+	//	pos.y = ((int)pos.y + height) % height;
+	//}
 
 	SetPosition(pos);
 

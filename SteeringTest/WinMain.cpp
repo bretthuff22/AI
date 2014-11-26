@@ -5,7 +5,7 @@
 using namespace SGE;
 
 const int kNumObstacles = 3;
-unsigned int kNumPikachus = 50;
+unsigned int kNumPikachus = 500;
 PokemonFactory factory;
 AIWorld aiWorld(factory, Agent::AgentType::kPIKACHU, kNumPikachus, 768.0f, 768.0f);
 SGE_Cursor cursor;
@@ -27,6 +27,7 @@ void GenerateAIWorld()
 
 	aiWorld.Clear();
 	//aiWorld = AIWorld(factory, Agent::AgentType::kPIKACHU, kNumPikachus, screenWidth, screenHeight);
+	aiWorld.SetScreenSize(screenWidth, screenHeight);
 	for (int i = 0; i < kNumObstacles; ++i)
 	{
 		const float x = RandomFloat(100.0f, screenWidth - 100.f);
@@ -38,7 +39,6 @@ void GenerateAIWorld()
 	for (int i = 0; i < kNumPikachus; ++i)
 	{
 		Agent* newAgent = aiWorld.CreateAgent(Agent::AgentType::kPIKACHU);
-
 	}
 }
 
