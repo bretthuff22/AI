@@ -70,6 +70,12 @@
     <ClInclude Include="AlignmentBehavior.h">
       <Filter>Steering</Filter>
     </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">
@@ -77,6 +83,9 @@
     </Filter>
     <Filter Include="Steering">
       <UniqueIdentifier>{829e5f26-e099-4e4d-9856-09c1a97cd2a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FSM">
+      <UniqueIdentifier>{6ae2414b-8950-49a6-a1b5-8d6c88e5f333}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -145,5 +154,10 @@
     <ClCompile Include="AlignmentBehavior.cpp">
       <Filter>Steering</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StateMachine.inl">
+      <Filter>FSM</Filter>
+    </None>
   </ItemGroup>
 </Project>

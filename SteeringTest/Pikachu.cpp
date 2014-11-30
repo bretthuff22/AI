@@ -33,7 +33,40 @@ void Pikachu::Load()
 	SetMaxForce(100.0f);
 	SetMaxSpeed(100.0f);
 
-	mSprite.Load("pikachu.png");
+	//mSprite.Load("pikachu.png");
+
+	mSprite.Add("carrier_01.png");
+	mSprite.Add("carrier_02.png");
+	mSprite.Add("carrier_03.png");
+	mSprite.Add("carrier_04.png");
+	mSprite.Add("carrier_05.png");
+	mSprite.Add("carrier_06.png");
+	mSprite.Add("carrier_07.png");
+	mSprite.Add("carrier_08.png");
+	mSprite.Add("carrier_09.png");
+	mSprite.Add("carrier_10.png");
+	mSprite.Add("carrier_11.png");
+	mSprite.Add("carrier_12.png");
+	mSprite.Add("carrier_13.png");
+	mSprite.Add("carrier_14.png");
+	mSprite.Add("carrier_15.png");
+	mSprite.Add("carrier_16.png");
+	mSprite.Add("carrier_17.png");
+	mSprite.Add("carrier_18.png");
+	mSprite.Add("carrier_19.png");
+	mSprite.Add("carrier_20.png");
+	mSprite.Add("carrier_21.png");
+	mSprite.Add("carrier_22.png");
+	mSprite.Add("carrier_23.png");
+	mSprite.Add("carrier_24.png");
+	mSprite.Add("carrier_25.png");
+	mSprite.Add("carrier_26.png");
+	mSprite.Add("carrier_27.png");
+	mSprite.Add("carrier_28.png");
+	mSprite.Add("carrier_29.png");
+	mSprite.Add("carrier_30.png");
+	mSprite.Add("carrier_31.png");
+	mSprite.Add("carrier_32.png");
 }
 
 void Pikachu::Unload()
@@ -82,10 +115,12 @@ void Pikachu::Render()
 	const float kHalfHeight = mSprite.GetHeight()*0.5f;
 	const SVector2 pos(GetPosition().x - kHalfWidth, GetPosition().y - kHalfHeight);
 
-	float angle = atan2f(GetHeading().y, GetHeading().x ) + (kPI *0.5f);
+	//float angle = atan2f(GetHeading().y, GetHeading().x ) + (kPI *0.5f);
+	const float angle = atan2f(GetHeading().y, GetHeading().x) + (kPI * 2.5f);
+	mSprite.SetCurrentFrame((int)(angle / (kPI * 2.0f) * 32) % 32);
 
 	mSprite.SetPosition(pos);
-	mSprite.SetRotation(angle);
+	//mSprite.SetRotation(angle);
 	mSprite.Render();
 }
 

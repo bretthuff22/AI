@@ -33,7 +33,8 @@ public:
 	enum AgentType
 	{
 		kDEFAULT,
-		kPIKACHU
+		kPIKACHU,
+		kMARIO
 	};
 
 	Agent(AIWorld& world);

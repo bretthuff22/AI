@@ -14,6 +14,10 @@
 #include "DijkstraSearch.h"
 #include "AStarSearch.h"
 
+// FSM headers
+#include "State.h"
+#include "StateMachine.h"
+
 // Steering headers
 #include "SteeringModule.h"
 #include "SteeringBehavior.h"
