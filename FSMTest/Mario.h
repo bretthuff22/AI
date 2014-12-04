@@ -29,11 +29,6 @@ public:
 	void SetArrive(bool onOff);
 
 
-	std::vector<Mushroom>& GetMushrooms()	{ return mMushrooms; }
-	int& GetMushroomIndex()					{ return mMushroomIndex; }
-
-	
-
 private:
 	StateMachine<Mario> mStateMachine;
 	SteeringModule mSteeringModule;
@@ -42,8 +37,6 @@ private:
 
 	SGE_Sprite mSprite;
 
-	std::vector<Mushroom> mMushrooms;
-	int mMushroomIndex;
 };
 
 #endif

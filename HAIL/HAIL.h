@@ -4,6 +4,7 @@
 // Agent headers
 #include "Agent.h"
 #include "AIWorld.h"
+#include "WorldObject.h"
 
 // Graph headers
 #include "Graph.h"

@@ -1,29 +1,19 @@
 #ifndef INCLUDED_MUSHROOM_H
 #define INCLUDED_MUSHROOM_H
 
+#include "HAIL.h"
 #include "SGE.h"
 using namespace SGE;
 
-class Mushroom
+class Mushroom : public WorldObject
 {
 public: 
 	Mushroom();
 	~Mushroom();
 
-	void Load();
-	void Unload();
-	void Render();
+	virtual void Load();
 
-	void Spawn(const SVector2& pos);
 	void Eat();
-	bool IsActive();
-
-	const SVector2& GetPosition() const { return mPosition; }
-
-private:
-	SGE_Sprite mSprite;
-	SVector2 mPosition;
-	bool mActive;
 };
 
 #endif

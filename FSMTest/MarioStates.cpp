@@ -6,12 +6,13 @@ void IdleState::Enter(Mario& owner)
 }
 void IdleState::Update(Mario& owner)
 {
-	std::vector<Mushroom>& mushrooms = owner.GetMushrooms();
-	for (int i = 0; i < mushrooms.size(); ++i)
+	AIWorld& world = owner.GetWorld();
+	const std::vector<WorldObject*>& mushrooms = world.GetObjects();
+	for (unsigned int i = 0; i < mushrooms.size(); ++i)
 	{
-		if (mushrooms[i].IsActive())
+		if (mushrooms[i]->IsActive())
 		{
-			owner.GetMushroomIndex() = i;
+			world.SetObjectIndex(i);
 			owner.ChangeState(Move);
 			break;
 		}
@@ -24,14 +25,15 @@ void IdleState::Exit(Mario& owner)
 
 void MoveState::Enter(Mario& owner)
 {
-	Mushroom& mushroom = owner.GetMushrooms()[owner.GetMushroomIndex()];
-	owner.SetDestination(mushroom.GetPosition());
+	AIWorld& world = owner.GetWorld();
+	owner.SetDestination(world.GetObjects()[world.GetObjectIndex()]->GetPosition());
 	owner.SetArrive(true);
 }
 void MoveState::Update(Mario& owner)
 {
-	Mushroom& mushroom = owner.GetMushrooms()[owner.GetMushroomIndex()];
-	if (Distance(owner.GetPosition(), mushroom.GetPosition()) < 20.0f)
+	AIWorld& world = owner.GetWorld();
+	SVector2 pos = world.GetObjects()[world.GetObjectIndex()]->GetPosition();
+	if (Distance(owner.GetPosition(), pos) < 20.0f)
 	{
 		owner.ChangeState(Eat);
 	}
@@ -48,8 +50,9 @@ void EatState::Enter(Mario& owner)
 }
 void EatState::Update(Mario& owner)
 {
-	Mushroom& mushroom = owner.GetMushrooms()[owner.GetMushroomIndex()];
-	mushroom.Eat();
+	AIWorld& world = owner.GetWorld();
+	Mushroom* mushroom = (Mushroom*)world.GetObjects()[world.GetObjectIndex()];
+	mushroom->Eat();
 	owner.ChangeState(Idle);
 }
 void EatState::Exit(Mario& owner)

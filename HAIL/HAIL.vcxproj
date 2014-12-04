@@ -38,6 +38,7 @@
     <ClInclude Include="SteeringBehavior.h" />
     <ClInclude Include="SteeringModule.h" />
     <ClInclude Include="WanderBehavior.h" />
+    <ClInclude Include="WorldObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Agent.cpp" />
@@ -63,6 +64,7 @@
     <ClCompile Include="SteeringBehavior.cpp" />
     <ClCompile Include="SteeringModule.cpp" />
     <ClCompile Include="WanderBehavior.cpp" />
+    <ClCompile Include="WorldObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StateMachine.inl" />

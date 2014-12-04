@@ -76,6 +76,7 @@
     <ClInclude Include="StateMachine.h">
       <Filter>FSM</Filter>
     </ClInclude>
+    <ClInclude Include="WorldObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">
@@ -154,6 +155,7 @@
     <ClCompile Include="AlignmentBehavior.cpp">
       <Filter>Steering</Filter>
     </ClCompile>
+    <ClCompile Include="WorldObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StateMachine.inl">

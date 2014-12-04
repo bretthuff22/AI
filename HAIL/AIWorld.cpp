@@ -5,6 +5,7 @@ AIWorld::AIWorld(AgentFactory& factory, Agent::AgentType type, unsigned int numA
 	, mWidth(screenWidth)
 	, mHeight(screenHeight)
 	, mAgentQuads()
+	, mObjectIndex(0)
 {
 }
 
@@ -42,6 +43,15 @@ Agent* AIWorld::CreateAgent(int typeID)
 void AIWorld::Clear()
 {
 	mObstacles.clear();
+
+	const int kNumObjects = mObjects.size();
+
+	for (int i = 0; i < kNumObjects; ++i)
+	{
+		mObjects[i]->Unload();
+	}
+
+
 	const int kNumAgents = mAgents.size();
 	for (int i = 0; i < kNumAgents; ++i)
 	{
@@ -59,9 +69,23 @@ void AIWorld::Clear()
 	}
 }
 
+void AIWorld::Load()
+{
+	for (int i = 0; i < mObjects.size(); ++i)
+	{
+		mObjects[i]->Load();
+	}
+}
 
 void AIWorld::Render()
 {
+	const int kNumObjects = mObjects.size();
+
+	for (int i = 0; i < kNumObjects; ++i)
+	{
+		mObjects[i]->Render();
+	}
+
 	const int kNumObstacles = mObstacles.size();
 	for (int i = 0; i < kNumObstacles; ++i)
 	{
