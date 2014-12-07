@@ -77,6 +77,9 @@
       <Filter>FSM</Filter>
     </ClInclude>
     <ClInclude Include="WorldObject.h" />
+    <ClInclude Include="PathPlanner.h">
+      <Filter>Pathing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">
@@ -87,6 +90,9 @@
     </Filter>
     <Filter Include="FSM">
       <UniqueIdentifier>{6ae2414b-8950-49a6-a1b5-8d6c88e5f333}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pathing">
+      <UniqueIdentifier>{7627f744-af81-4120-a033-f4d190f78571}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +162,9 @@
       <Filter>Steering</Filter>
     </ClCompile>
     <ClCompile Include="WorldObject.cpp" />
+    <ClCompile Include="PathPlanner.cpp">
+      <Filter>Pathing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="StateMachine.inl">

@@ -36,4 +36,6 @@
 #include "CohesionBehavior.h"
 #include "AlignmentBehavior.h"
 
+#include "PathPlanner.h"
+
 #endif //INCLUDED_HAIL_H

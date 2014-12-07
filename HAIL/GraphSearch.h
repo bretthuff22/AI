@@ -10,6 +10,11 @@ struct ICostFunctor
 	virtual float operator()(Node* a, Node* b) const = 0;
 };
 
+struct IValidFunctor
+{
+	virtual float operator()(Node* a) const = 0;
+};
+
 class GraphSearch
 {
 public:

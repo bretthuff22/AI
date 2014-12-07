@@ -6,17 +6,28 @@ AIWorld::AIWorld(AgentFactory& factory, Agent::AgentType type, unsigned int numA
 	, mHeight(screenHeight)
 	, mAgentQuads()
 	, mObjectIndex(0)
+	, mpNavGraph(nullptr)
 {
 }
 
 AIWorld::~AIWorld()
 {
+	
+}
 
+void AIWorld::AddWall(const SVector2& start, const SVector2& end)
+{
+	mWalls.push_back(SLineSegment(start, end));
 }
 
 void AIWorld::AddObstacle(const SVector2& pos, float radius)
 {
 	mObstacles.push_back(SCircle(pos, radius));
+}
+
+void AIWorld::SetNavGraph(Graph& graph)
+{
+	mpNavGraph = &graph;
 }
 
 void AIWorld::SetObstaclePos( const int index, SVector2 pos )
@@ -42,6 +53,7 @@ Agent* AIWorld::CreateAgent(int typeID)
 
 void AIWorld::Clear()
 {
+	mWalls.clear();
 	mObstacles.clear();
 
 	const int kNumObjects = mObjects.size();
@@ -69,6 +81,17 @@ void AIWorld::Clear()
 	}
 }
 
+bool AIWorld::HasLOS(const SVector2& start, const SVector2& end) const
+{
+	// TODO
+	return true;
+}
+
+void AIWorld::GetClosestNode(const SVector2& pos, int& x, int& y) const
+{
+	// TODO
+}
+
 void AIWorld::Load()
 {
 	for (int i = 0; i < mObjects.size(); ++i)
@@ -77,8 +100,27 @@ void AIWorld::Load()
 	}
 }
 
+Graph& AIWorld::GetNavGraph() const
+{
+	return *mpNavGraph;
+}
+
 void AIWorld::Render()
 {
+	const int kNumWalls = mWalls.size();
+	for (int i = 0; i < kNumWalls; ++i)
+	{
+		const SLineSegment& wall = mWalls[i];
+		Graphics_DebugLine(wall, 0xffffff);
+
+		SVector2 midPoint = (wall.from + wall.to) * 0.5f;
+		SVector2 normal(wall.to - wall.from);
+		normal.PerpendicularLH();
+		normal.Normalize();
+		Graphics_DebugLine(midPoint, midPoint + (normal * 10.0f), 0xffffff);
+	}
+
+
 	const int kNumObjects = mObjects.size();
 
 	for (int i = 0; i < kNumObjects; ++i)
@@ -378,4 +420,9 @@ SVector2 AIWorld::Wrap(SVector2 vector)
 	}
 
 	return vector;
+}
+
+const AIWorld::Walls& AIWorld::GetWalls() const
+{
+	return mWalls;
 }

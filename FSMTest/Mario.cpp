@@ -24,20 +24,9 @@ void Mario::Load()
 	mSteeringModule.AddBehavior(&mArrive);
 
 	SetMaxForce(100.0f);
-	SetMaxSpeed(300.0f);
+	SetMaxSpeed(200.0f);
 
 	mSprite.Load("mario_walk_01.png");
-
-
-	///////////////////////////////////
-	//mMushrooms.resize(5);
-
-	//for (int i = 0; i < 5; ++i)
-	//{
-	//	mMushrooms[i].Load();
-	//}
-
-	///////////////////////////////////
 }
 
 void Mario::Unload()
@@ -45,14 +34,6 @@ void Mario::Unload()
 	mStateMachine.Purge();
 
 	mSprite.Unload();
-
-	///////////////////////////////////
-	//for (int i = 0; i < mMushrooms.size(); ++i)
-	//{
-	//	mMushrooms[i].Unload();
-	//}
-
-	///////////////////////////////////
 }
 
 void Mario::Update(float deltaTime)
@@ -81,13 +62,6 @@ void Mario::Update(float deltaTime)
 
 void Mario::Render()
 {
-	///////////////////////////////////
-	//for (int i = 0; i < mMushrooms.size(); ++i)
-	//{
-	//	mMushrooms[i].Render();
-	//}
-	///////////////////////////////////
-
 	const float kHalfWidth = mSprite.GetWidth()*0.5f;
 	const float kHalfHeight = mSprite.GetHeight()*0.5f;
 	const SVector2 pos(GetPosition().x - kHalfWidth, GetPosition().y - kHalfHeight);

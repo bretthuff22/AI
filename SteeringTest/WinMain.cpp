@@ -5,6 +5,7 @@
 using namespace SGE;
 
 const int kNumObstacles = 3;
+const int kNumWalls = 3;
 unsigned int kNumPikachus = 500;
 PokemonFactory factory;
 AIWorld aiWorld(factory, Agent::AgentType::kPIKACHU, kNumPikachus, 768.0f, 768.0f);
@@ -34,6 +35,15 @@ void GenerateAIWorld()
 		const float y = RandomFloat(100.0f, screenHeight - 100.0f);
 		const float r = RandomFloat(20.0f, 100.0f);
 		aiWorld.AddObstacle(SVector2(x, y), r);
+	}
+
+	for (int i = 0; i < kNumWalls; ++i)
+	{
+		const float x = RandomFloat(100.0f, screenWidth - 100.f);
+		const float y = RandomFloat(100.0f, screenHeight - 100.0f);
+		const float x2 = RandomFloat(100.0f, screenWidth - 100.f);
+		const float y2 = RandomFloat(100.0f, screenHeight - 100.0f);
+		aiWorld.AddWall(SVector2(x, y), SVector2(x2, y2));
 	}
 
 	for (int i = 0; i < kNumPikachus; ++i)

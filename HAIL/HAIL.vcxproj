@@ -30,6 +30,7 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="ObstacleAvoidanceBehavior.h" />
     <ClInclude Include="PathFollowingBehavior.h" />
+    <ClInclude Include="PathPlanner.h" />
     <ClInclude Include="PursuitBehavior.h" />
     <ClInclude Include="SeekBehavior.h" />
     <ClInclude Include="SeparationBehavior.h" />
@@ -58,6 +59,7 @@
     <ClCompile Include="InterposeBehavior.cpp" />
     <ClCompile Include="ObstacleAvoidanceBehavior.cpp" />
     <ClCompile Include="PathFollowingBehavior.cpp" />
+    <ClCompile Include="PathPlanner.cpp" />
     <ClCompile Include="PursuitBehavior.cpp" />
     <ClCompile Include="SeekBehavior.cpp" />
     <ClCompile Include="SeparationBehavior.cpp" />

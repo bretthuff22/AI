@@ -5,6 +5,7 @@
 #include <SGE.h>
 #include "Agent.h"
 #include "WorldObject.h"
+#include "Graph.h"
 using namespace SGE;
 
 struct AgentFactory
@@ -20,19 +21,29 @@ struct AgentFactory
 class AIWorld
 {
 public:
-	
+	typedef std::vector<SLineSegment> Walls;
 	typedef std::vector<SCircle> Obstacles;
 
 	AIWorld(AgentFactory& factory, Agent::AgentType type, unsigned int numAgents, unsigned int screenWidth, unsigned int screenHeight);
 	~AIWorld();
 
+	void AddWall(const SVector2& start, const SVector2& end);
 	void AddObstacle(const SVector2& pos, float radius);
+	void SetNavGraph(Graph& graph);
 	void SetObstaclePos( const int index, SVector2 pos );
 	Agent* CreateAgent(int typeID);
 
 	const std::vector<Agent*>& GetAgents() const		{ return mAgents; }
 	void Clear();
+
+	bool HasLOS(const SVector2& start, const SVector2& end) const;
+
+	void GetClosestNode(const SVector2& pos, int& x, int& y) const;
+
+
 	void Load();
+
+	Graph& GetNavGraph() const;
 	void Render();
 	void RenderAgents();
 
@@ -47,7 +58,7 @@ public:
 
 	SVector2 Wrap(SVector2 vector);
 
-
+	const Walls& GetWalls() const;
 	const Obstacles& GetObstacles() const	{ return mObstacles; }
 	const std::vector<Agent*>& GetNearbyAgents( SVector2 pos ) const;
 
@@ -57,6 +68,7 @@ public:
 	void SetObjectIndex(unsigned int index)		{ mObjectIndex = index; }
 
 private:
+	Walls mWalls;
 	AgentFactory& mFactory;
 
 	Obstacles mObstacles;
@@ -69,6 +81,8 @@ private:
 	std::vector<Agent*> mNearbyAgents;
 	unsigned int mWidth;
 	unsigned int mHeight;
+
+	Graph* mpNavGraph;
 
 };
 
