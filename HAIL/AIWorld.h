@@ -13,10 +13,10 @@ struct AgentFactory
 	virtual Agent* CreateAgent(AIWorld* world, int typeID) = 0;
 };
 
-//struct ObjectFactory
-//{
-//	virtual WorldObject* CreateObject(AIWorld* world, int typeID) = 0;
-//};
+struct ObjectFactory
+{
+	virtual WorldObject* CreateObject(AIWorld* world, int typeID) = 0;
+};
 
 class AIWorld
 {

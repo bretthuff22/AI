@@ -34,7 +34,7 @@ void PathPlanner::RequestPath(const SVector2& destination, IValidFunctor& IsWalk
 
 	// Get the closest start and end node for our search
 	world.GetClosestNode(mOwner.GetPosition(), startX, startY);
-	world.GetClosestNode(destination, startX, startY);
+	world.GetClosestNode(destination, endX, endY);
 
 	AStarSearch search(world.GetNavGraph(), GetG, GetH);
 	search.Run(startX, startY, endX, endY);
