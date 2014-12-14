@@ -31,6 +31,7 @@
     <ClInclude Include="ObstacleAvoidanceBehavior.h" />
     <ClInclude Include="PathFollowingBehavior.h" />
     <ClInclude Include="PathPlanner.h" />
+    <ClInclude Include="PerceptionModule.h" />
     <ClInclude Include="PursuitBehavior.h" />
     <ClInclude Include="SeekBehavior.h" />
     <ClInclude Include="SeparationBehavior.h" />
@@ -60,6 +61,7 @@
     <ClCompile Include="ObstacleAvoidanceBehavior.cpp" />
     <ClCompile Include="PathFollowingBehavior.cpp" />
     <ClCompile Include="PathPlanner.cpp" />
+    <ClCompile Include="PerceptionModule.cpp" />
     <ClCompile Include="PursuitBehavior.cpp" />
     <ClCompile Include="SeekBehavior.cpp" />
     <ClCompile Include="SeparationBehavior.cpp" />

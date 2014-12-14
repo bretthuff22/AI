@@ -1,12 +1,13 @@
 #include "AIWorld.h"
 
-AIWorld::AIWorld(AgentFactory& factory, Agent::AgentType type, unsigned int numAgents, unsigned int screenWidth, unsigned int screenHeight)
+AIWorld::AIWorld(AgentFactory& factory, Agent::AgentType type, unsigned int numAgents, unsigned int screenWidth, unsigned int screenHeight, int tileSize)
 	: mFactory(factory)
 	, mWidth(screenWidth)
 	, mHeight(screenHeight)
 	, mAgentQuads()
 	, mObjectIndex(0)
 	, mpNavGraph(nullptr)
+	, mTileSize(tileSize)
 {
 }
 
@@ -83,72 +84,98 @@ void AIWorld::Clear()
 
 bool AIWorld::HasLOS(const SVector2& start, const SVector2& end) const
 {
-	unsigned int size = mWalls.size();
+	SLineSegment testSegment(start, end);
 
-	SLineSegment line(start, end);
+	const int numWalls = mWalls.size();
 
-	if (line.from.x != line.to.x)
+	for (int i = 0; i < numWalls; ++i)
 	{
-		float lineM = (line.from.y - line.to.y)/(line.from.x - line.from.x);
-		float lineB = line.from.y - lineM*line.from.x;
-		for (unsigned int i = 0; i < size; ++i)
+		const SLineSegment& wall = mWalls[i];
+		if (Intersect(testSegment, wall))
 		{
-			if (mWalls[i].from.x != mWalls[i].to.x)
-			{
-				float wallM = ( mWalls[i].from.y - mWalls[i].to.y ) / ( mWalls[i].from.x - mWalls[i].from.x );
-				float wallB = mWalls[i].from.y - wallM*mWalls[i].from.x;
-
-				if (lineM != wallM)
-				{
-					float x = (wallB - lineB)/(lineM - wallM);
-
-					if ( ( x < line.from.x && x > line.to.x) ||
-						 ( x > line.from.x && x < line.to.x) )
-					{
-						return false;
-					}
-				}
-			}
-			else
-			{
-				if ( ( line.from.x < mWalls[i].from.x && line.to.x > mWalls[i].from.x ) ||
-				   (   line.from.x > mWalls[i].from.x && line.to.x < mWalls[i].from.x ) )  
-				{
-					float y = lineM * mWalls[i].to.x + lineB;
-
-					if ( ( y < mWalls[i].from.y && y > mWalls[i].to.y) ||
-							( y > mWalls[i].from.y && y < mWalls[i].to.y) )
-					{
-						return false;
-					}
-					
-				}
-			}
+			return false;
 		}
 	}
-	else
+
+	const int numObstacles = mObstacles.size();
+
+	for (int i = 0; i < numObstacles; ++i)
 	{
-		for (unsigned int i = 0; i < size; ++i)
+		const SCircle& circle = mObstacles[i];
+		if (Intersect(testSegment, circle))
 		{
-			if ( ( mWalls[i].from.x < line.from.x && mWalls[i].to.x > line.from.x ) ||
-				   ( mWalls[i].from.x > line.from.x && mWalls[i].to.x < line.from.x ) )  
-			{
-				if (mWalls[i].from.x != mWalls[i].to.x)
-				{
-					float wallM = ( mWalls[i].from.y - mWalls[i].to.y ) / ( mWalls[i].from.x - mWalls[i].from.x );
-					float wallB = mWalls[i].from.y - wallM*mWalls[i].from.x;
-
-					float y = wallM * line.to.x + wallB;
-
-					if ( ( y < line.from.y && y > line.to.y) ||
-						 ( y > line.from.y && y < line.to.y) )
-					{
-						return false;
-					}
-				}
-			}
+			return false;
 		}
 	}
+
+
+
+	//unsigned int size = mWalls.size();
+
+	//SLineSegment line(start, end);
+
+	//if (line.from.x != line.to.x)
+	//{
+	//	float lineM = (line.from.y - line.to.y)/(line.from.x - line.from.x);
+	//	float lineB = line.from.y - lineM*line.from.x;
+	//	for (unsigned int i = 0; i < size; ++i)
+	//	{
+	//		if (mWalls[i].from.x != mWalls[i].to.x)
+	//		{
+	//			float wallM = ( mWalls[i].from.y - mWalls[i].to.y ) / ( mWalls[i].from.x - mWalls[i].from.x );
+	//			float wallB = mWalls[i].from.y - wallM*mWalls[i].from.x;
+
+	//			if (lineM != wallM)
+	//			{
+	//				float x = (wallB - lineB)/(lineM - wallM);
+
+	//				if ( ( x < line.from.x && x > line.to.x) ||
+	//					 ( x > line.from.x && x < line.to.x) )
+	//				{
+	//					return false;
+	//				}
+	//			}
+	//		}
+	//		else
+	//		{
+	//			if ( ( line.from.x < mWalls[i].from.x && line.to.x > mWalls[i].from.x ) ||
+	//			   (   line.from.x > mWalls[i].from.x && line.to.x < mWalls[i].from.x ) )  
+	//			{
+	//				float y = lineM * mWalls[i].to.x + lineB;
+
+	//				if ( ( y < mWalls[i].from.y && y > mWalls[i].to.y) ||
+	//						( y > mWalls[i].from.y && y < mWalls[i].to.y) )
+	//				{
+	//					return false;
+	//				}
+	//				
+	//			}
+	//		}
+	//	}
+	//}
+	//else
+	//{
+	//	for (unsigned int i = 0; i < size; ++i)
+	//	{
+	//		if ( ( mWalls[i].from.x < line.from.x && mWalls[i].to.x > line.from.x ) ||
+	//			   ( mWalls[i].from.x > line.from.x && mWalls[i].to.x < line.from.x ) )  
+	//		{
+	//			if (mWalls[i].from.x != mWalls[i].to.x)
+	//			{
+	//				float wallM = ( mWalls[i].from.y - mWalls[i].to.y ) / ( mWalls[i].from.x - mWalls[i].from.x );
+	//				float wallB = mWalls[i].from.y - wallM*mWalls[i].from.x;
+
+	//				float y = wallM * line.to.x + wallB;
+
+	//				if ( ( y < line.from.y && y > line.to.y) ||
+	//					 ( y > line.from.y && y < line.to.y) )
+	//				{
+	//					return false;
+	//				}
+	//			}
+	//		}
+	//	}
+	//}
 
 	return true;
 }
@@ -156,30 +183,36 @@ bool AIWorld::HasLOS(const SVector2& start, const SVector2& end) const
 void AIWorld::GetClosestNode(const SVector2& pos, int& x, int& y) const
 {
 	// TODO
-	Node* closest = nullptr;
 
-	unsigned int lowX = (unsigned int) pos.x;
-	unsigned int lowY = (unsigned int) pos.y;
-	unsigned int highX = (unsigned int) pos.x + 1;
-	unsigned int highY = (unsigned int) pos.y + 1;
+	x = (int)pos.x / mTileSize;
+	y = (int)pos.y / mTileSize;
 
-	unsigned int closestX = lowX;
-	unsigned int closestY = lowY;
 
-	if ((float)highX - pos.x < pos.x - (float)lowX)
-	{
-		closestX = highX;
-	}
 
-	if ((float)highY - pos.y < pos.y - (float)lowY)
-	{
-		closestY = highY;
-	}
+	//Node* closest = nullptr;
 
-	closest = mpNavGraph->GetNode(closestX, closestY);
+	//unsigned int lowX = (unsigned int) pos.x;
+	//unsigned int lowY = (unsigned int) pos.y;
+	//unsigned int highX = (unsigned int) pos.x + 1;
+	//unsigned int highY = (unsigned int) pos.y + 1;
 
-	x = closest->position.x;
-	y = closest->position.y;
+	//unsigned int closestX = lowX;
+	//unsigned int closestY = lowY;
+
+	//if ((float)highX - pos.x < pos.x - (float)lowX)
+	//{
+	//	closestX = highX;
+	//}
+
+	//if ((float)highY - pos.y < pos.y - (float)lowY)
+	//{
+	//	closestY = highY;
+	//}
+
+	//closest = mpNavGraph->GetNode(closestX, closestY);
+
+	//x = closest->position.x;
+	//y = closest->position.y;
 
 }
 
@@ -236,6 +269,15 @@ void AIWorld::RenderAgents()
 		agent->Render();
 	}
 }
+
+const AgentList& AIWorld::GetAgentList() const
+{
+	// TODO: turn vector into list?
+
+	return mAgentList;
+}
+
+
 
 void AIWorld::SetSteerMode(Agent::SteerMode mode)
 {

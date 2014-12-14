@@ -82,4 +82,6 @@ private:
 
 };
 
+typedef std::list<Agent*> AgentList;
+
 #endif //INCLUDED_AI_Agent_H

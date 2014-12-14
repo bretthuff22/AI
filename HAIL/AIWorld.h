@@ -24,8 +24,11 @@ public:
 	typedef std::vector<SLineSegment> Walls;
 	typedef std::vector<SCircle> Obstacles;
 
-	AIWorld(AgentFactory& factory, Agent::AgentType type, unsigned int numAgents, unsigned int screenWidth, unsigned int screenHeight);
+	AIWorld(AgentFactory& factory, Agent::AgentType type, unsigned int numAgents, unsigned int screenWidth, unsigned int screenHeight, int tileSize);
 	~AIWorld();
+
+	//void RegisterAgent(Agent* agent);
+	//void UnregisterAgent(Agent* agent);
 
 	void AddWall(const SVector2& start, const SVector2& end);
 	void AddObstacle(const SVector2& pos, float radius);
@@ -47,6 +50,7 @@ public:
 	void Render();
 	void RenderAgents();
 
+	const AgentList& GetAgentList() const;
 	void SetScreenSize(unsigned int width, unsigned int height)		{ mWidth = width; mHeight = height;}
 	void SetSteerMode(Agent::SteerMode mode);
 	void AddSteerMode(Agent::SteerMode mode);
@@ -68,6 +72,7 @@ public:
 	void SetObjectIndex(unsigned int index)		{ mObjectIndex = index; }
 
 private:
+	AgentList mAgentList;
 	Walls mWalls;
 	AgentFactory& mFactory;
 
@@ -84,6 +89,7 @@ private:
 
 	Graph* mpNavGraph;
 
+	int mTileSize;
 };
 
 #endif //INCLUDED_AI_AIWorld_H

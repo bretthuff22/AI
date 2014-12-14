@@ -4,7 +4,7 @@ using namespace SGE;
 #include "MarioFactory.h"
 
 MarioFactory factory;
-AIWorld aiWorld(factory, Agent::AgentType::kMARIO, 0, 1024.0f, 768.0f);
+AIWorld aiWorld(factory, Agent::AgentType::kMARIO, 0, 1024.0f, 768.0f, 128);
 Mario mario(aiWorld);
 std::vector<Mushroom*> mushrooms;
 unsigned int kNumMushrooms = 5;

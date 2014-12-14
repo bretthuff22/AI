@@ -19,6 +19,9 @@
 #include "State.h"
 #include "StateMachine.h"
 
+// Perception
+#include "PerceptionModule.h"
+
 // Steering headers
 #include "SteeringModule.h"
 #include "SteeringBehavior.h"
@@ -36,6 +39,7 @@
 #include "CohesionBehavior.h"
 #include "AlignmentBehavior.h"
 
+// Pathing
 #include "PathPlanner.h"
 
 #endif //INCLUDED_HAIL_H

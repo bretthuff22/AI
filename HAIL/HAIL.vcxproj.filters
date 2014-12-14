@@ -80,6 +80,9 @@
     <ClInclude Include="PathPlanner.h">
       <Filter>Pathing</Filter>
     </ClInclude>
+    <ClInclude Include="PerceptionModule.h">
+      <Filter>Perception</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">
@@ -93,6 +96,9 @@
     </Filter>
     <Filter Include="Pathing">
       <UniqueIdentifier>{7627f744-af81-4120-a033-f4d190f78571}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Perception">
+      <UniqueIdentifier>{8785aab6-261b-40ca-acc8-bb6efdfc61dd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +170,9 @@
     <ClCompile Include="WorldObject.cpp" />
     <ClCompile Include="PathPlanner.cpp">
       <Filter>Pathing</Filter>
+    </ClCompile>
+    <ClCompile Include="PerceptionModule.cpp">
+      <Filter>Perception</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

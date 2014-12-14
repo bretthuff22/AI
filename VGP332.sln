@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SteeringTest", "SteeringTes
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FSMTest", "FSMTest\FSMTest.vcxproj", "{A2464D4E-07CA-42C3-9FEA-41D0981046AE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PathPlanningTest", "PathPlanningTest\PathPlanningTest.vcxproj", "{153560D6-0027-4617-BEC8-7B0E02F9FF70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -37,6 +39,10 @@ Global
 		{A2464D4E-07CA-42C3-9FEA-41D0981046AE}.Debug|Win32.Build.0 = Debug|Win32
 		{A2464D4E-07CA-42C3-9FEA-41D0981046AE}.Release|Win32.ActiveCfg = Release|Win32
 		{A2464D4E-07CA-42C3-9FEA-41D0981046AE}.Release|Win32.Build.0 = Release|Win32
+		{153560D6-0027-4617-BEC8-7B0E02F9FF70}.Debug|Win32.ActiveCfg = Debug|Win32
+		{153560D6-0027-4617-BEC8-7B0E02F9FF70}.Debug|Win32.Build.0 = Debug|Win32
+		{153560D6-0027-4617-BEC8-7B0E02F9FF70}.Release|Win32.ActiveCfg = Release|Win32
+		{153560D6-0027-4617-BEC8-7B0E02F9FF70}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
