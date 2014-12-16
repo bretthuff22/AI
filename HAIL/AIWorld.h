@@ -59,6 +59,7 @@ public:
 	void SetMaxSpeed(float speed);
 	void ClearAgents();
 	void UpdateNeighborQuads();
+	void AddAgent(Agent& agent);
 
 	SVector2 Wrap(SVector2 vector);
 

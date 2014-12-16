@@ -443,6 +443,11 @@ void AIWorld::UpdateNeighborQuads()
 	}
 }
 
+void AIWorld::AddAgent(Agent& agent)
+{
+	mAgents.push_back(&agent);
+}
+
 const std::vector<Agent*>& AIWorld::GetNearbyAgents(SVector2 pos) const
 {
 	unsigned int x = (unsigned int)pos.x * 8 / mWidth;

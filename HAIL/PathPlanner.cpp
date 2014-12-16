@@ -41,7 +41,13 @@ void PathPlanner::RequestPath(const SVector2& destination, IValidFunctor& IsWalk
 	if (search.IsFound())
 	{
 		NodeList nodeList;
-		search.GetPath();//search.GetPath(nodeList);
+		Node* temp = search.GetPath();//search.GetPath(nodeList);
+
+		while (temp != nullptr)
+		{
+			nodeList.push_back(temp);
+			temp = temp->parent;
+		}
 
 		// Build path from nodelist
 		mPath.push_back(mOwner.GetPosition());

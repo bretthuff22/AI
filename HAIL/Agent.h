@@ -34,7 +34,9 @@ public:
 	{
 		kDEFAULT,
 		kPIKACHU,
-		kMARIO
+		kMARIO,
+		kHERO,
+		kVILLAIN
 	};
 
 	Agent(AIWorld& world);
@@ -42,7 +44,7 @@ public:
 
 	SMatrix33 GetTransform()	const;
 
-	void SetPosition(SVector2 position)					{mPosition = position;}
+	void SetPosition(SVector2 position)			{mPosition = position;}
 	void SetDestination(SVector2 destination)			{mDestination = destination;}
 	void SetVelocity(SVector2 velocity)					{mVelocity = velocity;}
 	void SetHeading(SVector2 heading)					{mHeading = heading;}
@@ -77,8 +79,6 @@ private:
 
 	float mMaxForce;
 	float mMaxSpeed;
-
-	//std::vector<Agent*> mWorldAgents;
 
 };
 
