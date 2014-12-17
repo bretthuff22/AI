@@ -8,6 +8,7 @@ Agent::Agent(AIWorld& world)
 	, mSide(0.0f, 1.0f)
 	, mMaxForce(0.0f)
 	, mMaxSpeed(0.0f)
+	, mAgentType(kDEFAULT)
 {
 
 }

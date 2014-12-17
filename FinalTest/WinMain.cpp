@@ -11,14 +11,40 @@ const int kHeight = 30;
 const int kTileSize = 32;
 const int kTerrainTiles = 5;
 
+const float viewRadius = 250.0f;
+
 TileMap map(kWidth, kHeight);
 SGE_Sprite tiles[kTerrainTiles];
 Graph graph;
-float heroSize = 64.0f; // FIX
-unsigned int kNumHeroes = 1;
+float villainSize = 90.0f; // FIX
+unsigned int kNumVillains = 6;
 VillainFactory factory;
-AIWorld aiWorld(factory, Agent::AgentType::kVILLAIN, kNumHeroes, 768.0f, 768.0f, (int)heroSize);
+AIWorld aiWorld(factory, Agent::AgentType::kVILLAIN, kNumVillains, 768.0f, 768.0f, (int)villainSize);
 Hero hero(aiWorld);
+
+void GenerateAIWorld()
+{
+	int screenWidth = IniFile_GetInt("WinWidth", 768.0f);
+	int screenHeight = IniFile_GetInt("WinHeight", 768.0f);
+
+	aiWorld.Clear();
+	aiWorld.SetScreenSize(screenWidth, screenHeight);
+
+	SVector2 nw(416, 320);
+	SVector2 ne(896, 320);
+	SVector2 sw(416, 672);
+	SVector2 se(896, 672);
+
+	aiWorld.AddWall(nw, ne);
+	aiWorld.AddWall(nw, sw);
+	aiWorld.AddWall(sw, se);
+	aiWorld.AddWall(ne, se);
+
+	for (int i = 0; i < kNumVillains; ++i)
+	{
+		Agent* newAgent = aiWorld.CreateAgent(Agent::AgentType::kVILLAIN);
+	}
+}
 
 const float costMatrix[7] = 
 {
@@ -100,9 +126,9 @@ void SGE_Initialize()
 		}
 	}
 
-	// TODO: add Hero to aiWorld
 	hero.Load();
 	hero.SetPosition(SVector2(100.0f, 100.0f));
+	GenerateAIWorld();
 	aiWorld.AddAgent(hero);
 }
 
@@ -121,6 +147,7 @@ void SGE_Terminate()
 bool SGE_Update(float deltaTime)
 {
 	hero.Update(deltaTime);
+	aiWorld.Update(deltaTime);
 	SVector2 heroPosition = hero.GetPosition();
 	Node* curHeroNode = graph.GetNode((int)heroPosition.x/kTileSize, (int)heroPosition.y/kTileSize);
 	if (Input_IsKeyPressed(Keys::UP) && curHeroNode->neighbors[Direction::North]->neighbors[Direction::North]->walkable)
@@ -148,14 +175,40 @@ bool SGE_Update(float deltaTime)
 
 void SGE_Render()
 {
+	//for ( int y = 0; y < kHeight; ++y)
+	//{
+	//	for ( int x = 0; x < kWidth; ++x)
+	//	{
+	//		tiles[map.GetTile(x, y)].SetPosition((float)x*kTileSize, (float)y*kTileSize);
+	//		tiles[map.GetTile(x, y)].Render();
+	//	}
+	//}
+	SVector2 heroPosition = hero.GetPosition();
+
 	for ( int y = 0; y < kHeight; ++y)
 	{
 		for ( int x = 0; x < kWidth; ++x)
 		{
-			tiles[map.GetTile(x, y)].SetPosition((float)x*kTileSize, (float)y*kTileSize);
-			tiles[map.GetTile(x, y)].Render();
+			SVector2 pos(x*kTileSize, y*kTileSize);
+			if (DistanceSquared(pos, heroPosition) < viewRadius*viewRadius)
+			{
+				tiles[map.GetTile(x, y)].SetPosition((float)x*kTileSize, (float)y*kTileSize);
+				tiles[map.GetTile(x, y)].Render();
+			}
 		}
 	}
 
-	hero.Render();
+	const std::vector<Agent*> agents = aiWorld.GetAgents();
+
+	const int size = agents.size();
+
+	for (int i = 0; i < size; ++i)
+	{
+		SVector2 villainPos = agents[i]->GetPosition();
+		if (DistanceSquared(villainPos, heroPosition) < viewRadius*viewRadius)
+		{
+			agents[i]->Render();
+		}
+	}
+	//hero.Render();
 }

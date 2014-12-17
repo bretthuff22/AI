@@ -5,11 +5,6 @@
 #include "HAIL.h"
 #include "Villain.h"
 
-enum VillainState
-{
-	Idle,
-	Move,
-};
 
 class IdleState : public State<Villain>
 {

@@ -5,6 +5,12 @@
 #include <SGE.h>
 using namespace SGE;
 
+enum VillainState
+{
+	Idle,
+	Move,
+};
+
 class Villain : public Agent
 {
 public: 
@@ -25,6 +31,9 @@ public:
 	void ChangeState(VillainState state);
 	void SetArrive(bool onOff);
 
+	void SetViewDistance(float distance)	{ mPerceptionModule.SetViewDistance(distance); }
+	void SetViewAngle(float angle)			{ mPerceptionModule.SetViewAngle(angle); } 
+	void SetMemorySpan(float span)			{ mPerceptionModule.SetMemorySpan(span); }
 	
 
 protected:
@@ -35,7 +44,6 @@ protected:
 	Agent::SteerMode mSteerMode;
 	SteeringModule mSteeringModule;
 	ArriveBehavior mArrive;
-
 
 	SGE_Sprite mSprite;
 };

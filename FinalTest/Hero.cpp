@@ -3,7 +3,7 @@
 Hero::Hero(AIWorld& aiWorld)
 	: Agent(aiWorld)
 {
-
+	SetAgentType(kHERO);
 }
 Hero::~Hero()
 {

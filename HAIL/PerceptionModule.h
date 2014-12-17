@@ -66,6 +66,7 @@ private:
 	float mViewDistance;
 	float mViewAngle; 
 	float mMemorySpan;
+
 };
 
 #endif

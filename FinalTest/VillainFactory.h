@@ -3,17 +3,16 @@
 
 #include "Agent.h"
 #include "HAIL.h"
-#include "Hero.h"
-//#include "Villain.h"
+#include "Villain.h"
 
 struct VillainFactory : public AgentFactory
 {
 	virtual Agent* CreateAgent(AIWorld* world, int typeID)
 	{
 		Agent* agent = nullptr;
-		if (typeID == Agent::AgentType::kPIKACHU)
+		if (typeID == Agent::AgentType::kVILLAIN)
 		{
-			agent = new Hero(*world); // TODO: CHANGE TO VILLAIN
+			agent = new Villain(*world); 
 			agent->Load();
 
 			int screenWidth = IniFile_GetInt("WinWidth", 768.0f);
@@ -23,7 +22,7 @@ struct VillainFactory : public AgentFactory
 			float hx = -1.0f;
 			float hy = -1.0f;
 
-			while ( (y < 0 || y > screenHeight - 1 || x < 0 || x < screenWidth - 1) ||
+			while ( (y < 0 || y > screenHeight - 1 || x < 0 || x > screenWidth - 1) ||
 				 ( ( y > (int)screenHeight*0.2f && y < (int)screenHeight*0.8f	 ) && (  x > (int)screenWidth*0.2f && x < (int)screenWidth*0.8f ) ) )
 			{
 				x = RandomFloat(100.0f, screenWidth - 100.f);
@@ -33,7 +32,7 @@ struct VillainFactory : public AgentFactory
 			}
 			agent->SetPosition(SVector2(x, y));
 			agent->SetHeading(SVector2(hx, hy));
-			agent->SetSteerMode(Agent::SteerMode::kARRIVE);
+			agent->SetSteerMode(Agent::SteerMode::kNONE);
 		}
 		return agent;
 	}

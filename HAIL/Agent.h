@@ -44,13 +44,14 @@ public:
 
 	SMatrix33 GetTransform()	const;
 
-	void SetPosition(SVector2 position)			{mPosition = position;}
+	void SetPosition(SVector2 position)					{mPosition = position;}
 	void SetDestination(SVector2 destination)			{mDestination = destination;}
 	void SetVelocity(SVector2 velocity)					{mVelocity = velocity;}
 	void SetHeading(SVector2 heading)					{mHeading = heading;}
 	void SetSide(SVector2 side)							{mSide = side;}
 	void SetMaxForce(float force)						{mMaxForce = force;}
 	void SetMaxSpeed(float speed)						{mMaxSpeed = speed;}
+	void SetAgentType(AgentType agentType)				{mAgentType = agentType;}
 
 	AIWorld& GetWorld()			const					{return mWorld;}
 	SVector2 GetPosition()		const					{return mPosition;}
@@ -60,6 +61,7 @@ public:
 	SVector2 GetSide()			const					{return mSide;}
 	float GetMaxForce()			const					{return mMaxForce;}
 	float GetMaxSpeed()			const					{return mMaxSpeed;}
+	AgentType GetAgentType()	const					{return mAgentType;}
 
 	virtual void Load() {}
 	virtual void SetSteerMode( Agent::SteerMode steerMode) {}
@@ -67,6 +69,9 @@ public:
 	virtual void Render() {}
 	virtual void Update(float deltaTime) {}
 	virtual void Unload() {}
+
+	
+
 
 private:
 	AIWorld& mWorld;
@@ -76,6 +81,8 @@ private:
 
 	SVector2 mHeading;
 	SVector2 mSide;
+
+	AgentType mAgentType;
 
 	float mMaxForce;
 	float mMaxSpeed;

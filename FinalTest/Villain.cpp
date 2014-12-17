@@ -1,10 +1,14 @@
 #include "Villain.h"
+#include "VillainState.h"
 
 Villain::Villain(AIWorld& aiWorld)
 	: Agent(aiWorld)
 	, mSteerMode(Agent::SteerMode::kNONE)
 	, mSteeringModule(this)
 	, mArrive(this, 1.0f)
+	, mPerceptionModule(*this)
+	, mStateMachine(*this)
+	, mPathPlanner(*this)
 {
 
 }
@@ -15,8 +19,16 @@ Villain::~Villain()
 
 void Villain::Load()
 {
-	mSteeringModule.AddBehavior(&mArrive);
-	mSteerMode = Agent::SteerMode::kSEEK;
+	mStateMachine.AddState(new IdleState());
+	mStateMachine.AddState(new MoveState());
+	ChangeState(Idle);
+
+	SetAgentType(kVILLAIN);
+	mPerceptionModule.SetViewDistance(200.0f);
+	mPerceptionModule.SetViewAngle(1.0f);
+	mPerceptionModule.SetMemorySpan(3.0f);
+
+	mSteerMode = Agent::SteerMode::kNONE;
 
 	SetMaxForce(100.0f);
 	SetMaxSpeed(100.0f);
@@ -26,11 +38,17 @@ void Villain::Load()
 
 void Villain::Unload()
 {
+	mStateMachine.Purge();
+
 	mSprite.Unload();
 }
 
 void Villain::Update(float deltaTime)
 {
+	mPerceptionModule.Update(deltaTime);
+	mStateMachine.Update();
+	
+
 	SVector2 force = mSteeringModule.Update(deltaTime);
 	SVector2 acceleration = force / 1.0f; // should be mass 
 	SetVelocity(GetVelocity() + acceleration * deltaTime);
@@ -40,19 +58,6 @@ void Villain::Update(float deltaTime)
 	SVector2 pos = GetPosition() + vel * deltaTime;
 
 	pos = GetWorld().Wrap(pos);
-
-	//int width = IniFile_GetInt("WinWidth", 768.0f);
-	//int height = IniFile_GetInt("WinHeight", 768.0f);
-
-	//if (pos.x < -100.0f || pos.x > width)
-	//{
-	//	pos.x = ((int)pos.x + width) % width;
-	//}
-
-	//if (pos.y < -100.0f || pos.y > height)
-	//{
-	//	pos.y = ((int)pos.y + height) % height;
-	//}
 
 	SetPosition(pos);
 
@@ -77,132 +82,32 @@ void Villain::Render()
 	mSprite.SetPosition(pos);
 	//mSprite.SetRotation(angle);
 	mSprite.Render();
+
+	Graphics_DebugLine(GetPosition(), GetPosition() + GetHeading()*200.0f, 0xff0000);
 }
 
 void Villain::SetSteerMode( Agent::SteerMode steerMode)
 {
 	mSteeringModule.Clear();
 	mSteerMode = steerMode;
-	mPathFollowing.Clear();
 
-	if (steerMode == kSEEK)
-	{
-		mSteeringModule.AddBehavior(&mSeek);
-	}
-	else if (steerMode == kFLEE)
-	{
-		mSteeringModule.AddBehavior(&mFlee);
-	}
-	else if (steerMode == kARRIVE)
+	if (steerMode == kARRIVE)
 	{
 		mSteeringModule.AddBehavior(&mArrive);
-	}
-	else if (steerMode == kPURSUIT)
-	{
-		mSteeringModule.AddBehavior(&mPursuit);
-	}
-	else if (steerMode == kEVADE)
-	{
-		mSteeringModule.AddBehavior(&mEvade);
-	}
-	else if (steerMode == kWANDER)
-	{
-		mSteeringModule.AddBehavior(&mWander);
-	}
-	else if (steerMode == kINTERPOSE)
-	{
-		mSteeringModule.AddBehavior(&mInterpose);
-	}
-	else if (steerMode == kHIDE)
-	{
-		mSteeringModule.AddBehavior(&mHide);
-	}
-	else if (steerMode == kPATHFOLLOWING)
-	{
-		mSteeringModule.AddBehavior(&mPathFollowing);
-	}
-	else if (steerMode == kOBSTACLEAVOIDANCE)
-	{
-		mSteeringModule.AddBehavior(&mObstacleAvoidance);
-	}
-	else if (steerMode == kSEPARATION)
-	{
-		mSteeringModule.AddBehavior(&mSeparation);
-	}
-	else if (steerMode == kCOHESION)
-	{
-		mSteeringModule.AddBehavior(&mCohesion);
-	}
-	else if (steerMode == kALIGNMENT)
-	{
-		mSteeringModule.AddBehavior(&mAlignment);
 	}
 }
 
 void Villain::AddSteerMode( Agent::SteerMode steerMode)
 {
-	mSteerMode = steerMode;
-
-	if (steerMode == kSEEK)
-	{
-		mSteeringModule.AddBehavior(&mSeek);
-	}
-	else if (steerMode == kFLEE)
-	{
-		mSteeringModule.AddBehavior(&mFlee);
-	}
-	else if (steerMode == kARRIVE)
-	{
-		mSteeringModule.AddBehavior(&mArrive);
-	}
-	else if (steerMode == kPURSUIT)
-	{
-		mSteeringModule.AddBehavior(&mPursuit);
-	}
-	else if (steerMode == kEVADE)
-	{
-		mSteeringModule.AddBehavior(&mEvade);
-	}
-	else if (steerMode == kWANDER)
-	{
-		mSteeringModule.AddBehavior(&mWander);
-	}
-	else if (steerMode == kINTERPOSE)
-	{
-		mSteeringModule.AddBehavior(&mInterpose);
-	}
-	else if (steerMode == kHIDE)
-	{
-		mSteeringModule.AddBehavior(&mHide);
-	}
-	else if (steerMode == kPATHFOLLOWING)
-	{
-		mSteeringModule.AddBehavior(&mPathFollowing);
-	}
-	else if (steerMode == kOBSTACLEAVOIDANCE)
-	{
-		mSteeringModule.AddBehavior(&mObstacleAvoidance);
-	}
-	else if (steerMode == kSEPARATION)
-	{
-		mSteeringModule.AddBehavior(&mSeparation);
-	}
-	else if (steerMode == kCOHESION)
-	{
-		mSteeringModule.AddBehavior(&mCohesion);
-	}
-	else if (steerMode == kALIGNMENT)
-	{
-		mSteeringModule.AddBehavior(&mAlignment);
-	}
+	
 }
 
-void Villain::AddDestinationForPathFollowing(SVector2 dest)
-{ 
-	mPathFollowing.AddDestination(dest); 
-}
-
-void Villain::ClearDestinationsForPathFollowing()
+void Villain::ChangeState(VillainState state)
 {
-	mPathFollowing.Clear();
+	mStateMachine.ChangeState((int)state);
+}
+
+void Villain::SetArrive(bool onOff)
+{
+	mArrive.SetActive(onOff);
 }

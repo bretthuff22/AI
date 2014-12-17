@@ -258,6 +258,8 @@ void AIWorld::Render()
 		SCircle& obstacle = mObstacles[i];
 		Graphics_DebugCircle(obstacle, 0xffffff);
 	}
+
+	RenderAgents();
 }
 
 void AIWorld::RenderAgents()
