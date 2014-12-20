@@ -51,6 +51,7 @@ public:
 	// Function to set color
 	void SetColor(int iRed, int iGreen, int iBlue, int iAlpha);
 	void SetColor(int argb);
+	void SetAlpha(float alpha);
 
 	// Functions to get sprite attributes
 	void GetPosition(float& fPosX, float& fPosY) const;

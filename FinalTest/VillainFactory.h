@@ -31,7 +31,7 @@ struct VillainFactory : public AgentFactory
 				hy = RandomFloat(100.0f, screenHeight - 100.0f);
 			}
 			agent->SetPosition(SVector2(x, y));
-			agent->SetHeading(SVector2(hx, hy));
+			agent->SetHeading(Normalize(SVector2(hx, hy)));
 			agent->SetSteerMode(Agent::SteerMode::kNONE);
 		}
 		return agent;

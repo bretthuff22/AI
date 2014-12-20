@@ -190,11 +190,12 @@ void SGE_Render()
 		for ( int x = 0; x < kWidth; ++x)
 		{
 			SVector2 pos(x*kTileSize, y*kTileSize);
-			if (DistanceSquared(pos, heroPosition) < viewRadius*viewRadius)
-			{
-				tiles[map.GetTile(x, y)].SetPosition((float)x*kTileSize, (float)y*kTileSize);
-				tiles[map.GetTile(x, y)].Render();
-			}
+			tiles[map.GetTile(x, y)].SetPosition((float)x*kTileSize, (float)y*kTileSize);
+
+			const float distance = Distance(pos, heroPosition);
+			const float visibility = 1.0f - distance / viewRadius;
+			tiles[map.GetTile(x, y)].SetAlpha(visibility);
+			tiles[map.GetTile(x, y)].Render();
 		}
 	}
 
@@ -205,7 +206,8 @@ void SGE_Render()
 	for (int i = 0; i < size; ++i)
 	{
 		SVector2 villainPos = agents[i]->GetPosition();
-		if (DistanceSquared(villainPos, heroPosition) < viewRadius*viewRadius)
+		const float distance = Distance(villainPos, heroPosition);
+		if (distance < viewRadius)
 		{
 			agents[i]->Render();
 		}

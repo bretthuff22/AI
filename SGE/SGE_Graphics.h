@@ -61,6 +61,7 @@ public:
 	void SetRotation(float rotation);
 	void SetFlipH(bool bFlip);
 	void SetFlipV(bool bFlip);
+	void SetAlpha(float alpha);
 
 	void Play(float speed, bool loop);
 	void Stop(void);

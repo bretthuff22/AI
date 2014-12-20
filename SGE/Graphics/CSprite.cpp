@@ -230,6 +230,13 @@ void CSprite::SetColor(int argb)
 
 //----------------------------------------------------------------------------------------------------
 
+void CSprite::SetAlpha(float alpha)
+{
+	mColor.a = alpha;
+}
+
+//----------------------------------------------------------------------------------------------------
+
 void CSprite::GetPosition(float& fPosX, float& fPosY) const
 {
 	fPosX = mPosition.x;

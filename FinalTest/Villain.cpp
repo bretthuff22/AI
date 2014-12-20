@@ -19,13 +19,13 @@ Villain::~Villain()
 
 void Villain::Load()
 {
-	mStateMachine.AddState(new IdleState());
+ 	mStateMachine.AddState(new IdleState());
 	mStateMachine.AddState(new MoveState());
 	ChangeState(Idle);
 
 	SetAgentType(kVILLAIN);
 	mPerceptionModule.SetViewDistance(200.0f);
-	mPerceptionModule.SetViewAngle(1.0f);
+	mPerceptionModule.SetViewAngle(kPI*0.15f);
 	mPerceptionModule.SetMemorySpan(3.0f);
 
 	mSteerMode = Agent::SteerMode::kNONE;
@@ -75,15 +75,19 @@ void Villain::Render()
 	const float kHalfHeight = mSprite.GetHeight()*0.5f;
 	const SVector2 pos(GetPosition().x - kHalfWidth, GetPosition().y - kHalfHeight);
 
-	//float angle = atan2f(GetHeading().y, GetHeading().x ) + (kPI *0.5f);
 	const float angle = atan2f(GetHeading().y, GetHeading().x) + (kPI * 2.5f);
 	mSprite.SetCurrentFrame((int)(angle / (kPI * 2.0f) * 32) % 32);
 
 	mSprite.SetPosition(pos);
-	//mSprite.SetRotation(angle);
 	mSprite.Render();
 
-	Graphics_DebugLine(GetPosition(), GetPosition() + GetHeading()*200.0f, 0xff0000);
+	const float viewAngle = mPerceptionModule.GetViewAngle();
+	float radius = 200.0f*atanf(viewAngle);
+	SVector2 center = GetPosition() + GetHeading()*200.0f;
+	SCircle circle(center, radius);
+	Graphics_DebugCircle(circle, 0xffff00);
+	
+	Graphics_DebugLine(GetPosition(), center, 0xffff00);
 }
 
 void Villain::SetSteerMode( Agent::SteerMode steerMode)

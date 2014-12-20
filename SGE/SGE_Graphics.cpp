@@ -206,6 +206,13 @@ void SGE_Sprite::SetFlipV(bool bFlip)
 
 //----------------------------------------------------------------------------------------------------
 
+void SGE_Sprite::SetAlpha(float alpha)
+{
+	mpSprite->SetAlpha(alpha);
+}
+
+//----------------------------------------------------------------------------------------------------
+
 void SGE_Sprite::Play(float speed, bool loop)
 {
 	mpSprite->SetAnimationSpeed(speed);
