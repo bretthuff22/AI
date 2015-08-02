@@ -6,7 +6,7 @@ using namespace SGE;
 
 const int kNumObstacles = 3;
 const int kNumWalls = 3;
-unsigned int kNumPikachus = 500;
+unsigned int kNumPikachus = 50;
 PokemonFactory factory;
 float pikachuSize = 128.0f;
 AIWorld aiWorld(factory, Agent::AgentType::kPIKACHU, kNumPikachus, 768.0f, 768.0f, (int)pikachuSize);

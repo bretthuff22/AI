@@ -108,112 +108,13 @@ bool AIWorld::HasLOS(const SVector2& start, const SVector2& end) const
 		}
 	}
 
-
-
-	//unsigned int size = mWalls.size();
-
-	//SLineSegment line(start, end);
-
-	//if (line.from.x != line.to.x)
-	//{
-	//	float lineM = (line.from.y - line.to.y)/(line.from.x - line.from.x);
-	//	float lineB = line.from.y - lineM*line.from.x;
-	//	for (unsigned int i = 0; i < size; ++i)
-	//	{
-	//		if (mWalls[i].from.x != mWalls[i].to.x)
-	//		{
-	//			float wallM = ( mWalls[i].from.y - mWalls[i].to.y ) / ( mWalls[i].from.x - mWalls[i].from.x );
-	//			float wallB = mWalls[i].from.y - wallM*mWalls[i].from.x;
-
-	//			if (lineM != wallM)
-	//			{
-	//				float x = (wallB - lineB)/(lineM - wallM);
-
-	//				if ( ( x < line.from.x && x > line.to.x) ||
-	//					 ( x > line.from.x && x < line.to.x) )
-	//				{
-	//					return false;
-	//				}
-	//			}
-	//		}
-	//		else
-	//		{
-	//			if ( ( line.from.x < mWalls[i].from.x && line.to.x > mWalls[i].from.x ) ||
-	//			   (   line.from.x > mWalls[i].from.x && line.to.x < mWalls[i].from.x ) )  
-	//			{
-	//				float y = lineM * mWalls[i].to.x + lineB;
-
-	//				if ( ( y < mWalls[i].from.y && y > mWalls[i].to.y) ||
-	//						( y > mWalls[i].from.y && y < mWalls[i].to.y) )
-	//				{
-	//					return false;
-	//				}
-	//				
-	//			}
-	//		}
-	//	}
-	//}
-	//else
-	//{
-	//	for (unsigned int i = 0; i < size; ++i)
-	//	{
-	//		if ( ( mWalls[i].from.x < line.from.x && mWalls[i].to.x > line.from.x ) ||
-	//			   ( mWalls[i].from.x > line.from.x && mWalls[i].to.x < line.from.x ) )  
-	//		{
-	//			if (mWalls[i].from.x != mWalls[i].to.x)
-	//			{
-	//				float wallM = ( mWalls[i].from.y - mWalls[i].to.y ) / ( mWalls[i].from.x - mWalls[i].from.x );
-	//				float wallB = mWalls[i].from.y - wallM*mWalls[i].from.x;
-
-	//				float y = wallM * line.to.x + wallB;
-
-	//				if ( ( y < line.from.y && y > line.to.y) ||
-	//					 ( y > line.from.y && y < line.to.y) )
-	//				{
-	//					return false;
-	//				}
-	//			}
-	//		}
-	//	}
-	//}
-
 	return true;
 }
 
 void AIWorld::GetClosestNode(const SVector2& pos, int& x, int& y) const
 {
-	// TODO
-
 	x = (int)pos.x / mTileSize;
 	y = (int)pos.y / mTileSize;
-
-
-
-	//Node* closest = nullptr;
-
-	//unsigned int lowX = (unsigned int) pos.x;
-	//unsigned int lowY = (unsigned int) pos.y;
-	//unsigned int highX = (unsigned int) pos.x + 1;
-	//unsigned int highY = (unsigned int) pos.y + 1;
-
-	//unsigned int closestX = lowX;
-	//unsigned int closestY = lowY;
-
-	//if ((float)highX - pos.x < pos.x - (float)lowX)
-	//{
-	//	closestX = highX;
-	//}
-
-	//if ((float)highY - pos.y < pos.y - (float)lowY)
-	//{
-	//	closestY = highY;
-	//}
-
-	//closest = mpNavGraph->GetNode(closestX, closestY);
-
-	//x = closest->position.x;
-	//y = closest->position.y;
-
 }
 
 void AIWorld::Load()
@@ -231,20 +132,6 @@ Graph& AIWorld::GetNavGraph() const
 
 void AIWorld::Render()
 {
-	const int kNumWalls = mWalls.size();
-	for (int i = 0; i < kNumWalls; ++i)
-	{
-		const SLineSegment& wall = mWalls[i];
-		Graphics_DebugLine(wall, 0xffffff);
-
-		SVector2 midPoint = (wall.from + wall.to) * 0.5f;
-		SVector2 normal(wall.to - wall.from);
-		normal.PerpendicularLH();
-		normal.Normalize();
-		Graphics_DebugLine(midPoint, midPoint + (normal * 10.0f), 0xffffff);
-	}
-
-
 	const int kNumObjects = mObjects.size();
 
 	for (int i = 0; i < kNumObjects; ++i)
@@ -253,13 +140,13 @@ void AIWorld::Render()
 	}
 
 	const int kNumObstacles = mObstacles.size();
+
 	for (int i = 0; i < kNumObstacles; ++i)
 	{
 		SCircle& obstacle = mObstacles[i];
 		Graphics_DebugCircle(obstacle, 0xffffff);
 	}
 
-	RenderAgents();
 }
 
 void AIWorld::RenderAgents()
@@ -456,84 +343,6 @@ const std::vector<Agent*>& AIWorld::GetNearbyAgents(SVector2 pos) const
 	unsigned int y = (unsigned int)pos.y * 8 / mHeight;
 
 	return mNearbyQuads[x][y];
-
-	//std::vector<Agent*> homeQuad = mAgentQuads[x][y];
-	//for (unsigned int i = 0; i < homeQuad.size(); ++i)
-	//{
-	//	mNearbyAgents.push_back(homeQuad[i]);
-	//}
-
-	//if (y > 0)
-	//{
-	//	std::vector<Agent*> northQuad = mAgentQuads[x][y-1];
-	//	for (unsigned int i = 0; i < northQuad.size(); ++i)
-	//	{
-	//		mNearbyAgents.push_back(northQuad[i]);
-	//	}
-
-	//	if (x > 0)
-	//	{
-	//		std::vector<Agent*> northWQuad = mAgentQuads[x-1][y-1];
-	//		for (unsigned int i = 0; i < northWQuad.size(); ++i)
-	//		{
-	//			mNearbyAgents.push_back(northWQuad[i]);
-	//		}
-	//	}
-	//	if (x < 7)
-	//	{
-	//		std::vector<Agent*> northEQuad = mAgentQuads[x+1][y-1];
-	//		for (unsigned int i = 0; i < northEQuad.size(); ++i)
-	//		{
-	//			mNearbyAgents.push_back(northEQuad[i]);
-	//		}
-	//	}
-	//}
-	//
-	//if (y < 7)
-	//{
-	//	std::vector<Agent*> southQuad = mAgentQuads[x][y+1];
-	//	for (unsigned int i = 0; i < southQuad.size(); ++i)
-	//	{
-	//		mNearbyAgents.push_back(southQuad[i]);
-	//	}
-
-	//	if (x > 0)
-	//	{
-	//		std::vector<Agent*> southWQuad = mAgentQuads[x-1][y+1];
-	//		for (unsigned int i = 0; i < southWQuad.size(); ++i)
-	//		{
-	//			mNearbyAgents.push_back(southWQuad[i]);
-	//		}
-	//	}
-	//	if (x < 7)
-	//	{
-	//		std::vector<Agent*> southEQuad = mAgentQuads[x+1][y+1];
-	//		for (unsigned int i = 0; i < southEQuad.size(); ++i)
-	//		{
-	//			mNearbyAgents.push_back(southEQuad[i]);
-	//		}
-	//	}
-	//}
-
-	//if (x > 0)
-	//{
-	//	std::vector<Agent*> westQuad = mAgentQuads[x-1][y];
-	//	for (unsigned int i = 0; i < westQuad.size(); ++i)
-	//	{
-	//		mNearbyAgents.push_back(westQuad[i]);
-	//	}
-	//}
-
-	//if (x < 7)
-	//{
-	//	std::vector<Agent*> eastQuad = mAgentQuads[x+1][y];
-	//	for (unsigned int i = 0; i < eastQuad.size(); ++i)
-	//	{
-	//		mNearbyAgents.push_back(eastQuad[i]);
-	//	}
-	//}
-	//
-	//return mNearbyAgents;
 }
 
 

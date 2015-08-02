@@ -86,19 +86,6 @@ void Pikachu::Update(float deltaTime)
 
 	pos = GetWorld().Wrap(pos);
 
-	//int width = IniFile_GetInt("WinWidth", 768.0f);
-	//int height = IniFile_GetInt("WinHeight", 768.0f);
-
-	//if (pos.x < -100.0f || pos.x > width)
-	//{
-	//	pos.x = ((int)pos.x + width) % width;
-	//}
-
-	//if (pos.y < -100.0f || pos.y > height)
-	//{
-	//	pos.y = ((int)pos.y + height) % height;
-	//}
-
 	SetPosition(pos);
 
 	if (GetVelocity().LengthSquared() > 0.005f)
@@ -115,12 +102,10 @@ void Pikachu::Render()
 	const float kHalfHeight = mSprite.GetHeight()*0.5f;
 	const SVector2 pos(GetPosition().x - kHalfWidth, GetPosition().y - kHalfHeight);
 
-	//float angle = atan2f(GetHeading().y, GetHeading().x ) + (kPI *0.5f);
 	const float angle = atan2f(GetHeading().y, GetHeading().x) + (kPI * 2.5f);
 	mSprite.SetCurrentFrame((int)(angle / (kPI * 2.0f) * 32) % 32);
 
 	mSprite.SetPosition(pos);
-	//mSprite.SetRotation(angle);
 	mSprite.Render();
 }
 

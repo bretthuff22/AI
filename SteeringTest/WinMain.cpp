@@ -6,7 +6,7 @@ using namespace SGE;
 
 const int kNumObstacles = 3;
 const int kNumWalls = 3;
-unsigned int kNumPikachus = 500;
+unsigned int kNumPikachus = 25;
 PokemonFactory factory;
 float pikachuSize = 128.0f;
 AIWorld aiWorld(factory, Agent::AgentType::kPIKACHU, kNumPikachus, 768.0f, 768.0f, (int)pikachuSize);
@@ -27,7 +27,6 @@ void GenerateAIWorld()
 	int screenHeight = IniFile_GetInt("WinHeight", 768.0f);
 
 	aiWorld.Clear();
-	//aiWorld = AIWorld(factory, Agent::AgentType::kPIKACHU, kNumPikachus, screenWidth, screenHeight);
 	aiWorld.SetScreenSize(screenWidth, screenHeight);
 	for (int i = 0; i < kNumObstacles; ++i)
 	{
@@ -51,104 +50,6 @@ void GenerateAIWorld()
 		Agent* newAgent = aiWorld.CreateAgent(Agent::AgentType::kPIKACHU);
 	}
 }
-
-//void LoadPikachus()
-//{
-//	int screenWidth = IniFile_GetInt("WinWidth", 768.0f);
-//	int screenHeight = IniFile_GetInt("WinHeight", 768.0f);
-
-	//for (int i = 0; i < kNumPikachus; ++i)
-	//{
-	//	pikachus.push_back(new Pikachu(aiWorld));
-
-	//	pikachus[i]->Load();
-
-	//	const float x = RandomFloat(100.0f, screenWidth - 100.f);
-	//	const float y = RandomFloat(100.0f, screenHeight - 100.0f);
-	//	const float hx = RandomFloat(100.0f, screenWidth - 100.f);
-	//	const float hy = RandomFloat(100.0f, screenHeight - 100.0f);
-	//	pikachus[i]->SetPosition(SVector2(x, y));
-	//	pikachus[i]->SetHeading(SVector2(hx, hy));
-	//	pikachus[i]->SetSteerMode(Agent::SteerMode::kSEEK);
-	//}
-
-	//for (int i = 0; i < kNumPikachus; ++i)
-	//{
-	//	for (int j = 0; j < kNumPikachus; ++j)
-	//	{
-	//		if (i != j)
-	//		{
-	//			pikachus[i]->AddAgent(*pikachus[j]);
-	//		}
-	//	}
-	//}
-//}
-
-//void aiWorld.RenderAgents()
-//{
-//	for (int i = 0; i < kNumPikachus; ++i)
-//	{
-//		pikachus[i]->Render();
-//	}
-//}
-
-//void aiWorld.SetSteerMode(Agent::SteerMode mode)
-//{
-//	for (int i = 0; i < kNumPikachus; ++i)
-//	{
-//		pikachus[i]->SetSteerMode(mode);
-//	}
-//}
-
-//void aiWorld.AddSteerMode(Agent::SteerMode mode)
-//{
-//	for (int i = 0; i < kNumPikachus; ++i)
-//	{
-//		pikachus[i]->AddSteerMode(mode);
-//	}
-//}
-
-//void UpdatePikachus(float deltaTime)
-//{
-//	for (int i = 0; i < kNumPikachus; ++i)
-//	{
-//		pikachus[i]->Update(deltaTime);
-//	}
-//}
-
-//void SetDestinationPikachus(SVector2 dest)
-//{
-//	for (int i = 0; i < kNumPikachus; ++i)
-//	{
-//		pikachus[i]->SetDestination(dest);
-//	}
-//}
-
-//void aiWorld.SetMaxSpeed(float speed)
-//{
-//	for (int i = 0; i < kNumPikachus; ++i)
-//	{
-//		pikachus[i]->SetMaxSpeed(speed);
-//	}
-//}
-
-//void ClearAgents()
-//{
-//	for (int i = 0; i < kNumPikachus; ++i)
-//	{
-//		pikachus[i]->SetSteerMode(Agent::SteerMode::kNONE);
-//	}
-//}
-//
-//void TerminatePikachus()
-//{
-//	for (int i = 0; i < kNumPikachus; ++i)
-//	{
-//		pikachus[i]->Unload();
-//	}
-//
-//	pikachus.clear();
-//}
 
 void SGE_Initialize()
 {
@@ -431,7 +332,11 @@ void SGE_Render()
 		Graphics_DebugCircle(circle.center, circle.radius, 0xFF0000);
 	}
 
-	aiWorld.Render();
+
+	if (steerMode == Agent::SteerMode::kHIDE)
+	{
+		aiWorld.Render();
+	}
 
 	if (steerMode == Agent::SteerMode::kOBSTACLEAVOIDANCE)
 	{
@@ -439,6 +344,8 @@ void SGE_Render()
 		Graphics_DebugLine(pikachu.GetObstacleAvoidanceBehavior().GetBoundingLineRight(), 0x00ff00);
 		Graphics_DebugLine(pikachu.GetObstacleAvoidanceBehavior().GetBoundingLineLeft().from, pikachu.GetObstacleAvoidanceBehavior().GetBoundingLineRight().from, 0x00ff00);
 		Graphics_DebugLine(pikachu.GetObstacleAvoidanceBehavior().GetBoundingLineLeft().to, pikachu.GetObstacleAvoidanceBehavior().GetBoundingLineRight().to, 0x00ff00);
+
+		aiWorld.Render();
 	}
 }
 
